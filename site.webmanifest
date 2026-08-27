@@ -1,0 +1,22 @@
+{
+  "name": "Omega Instruments",
+  "short_name": "Omega",
+  "description": "Solar balance-of-system hardware — MC4 connectors, mounting clamps, rails, earthing kits and Havells-built ACDB/DCDB boxes. Manufacturer & trader, Kathwada, Ahmedabad. Quotation within 24 hours.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4F7FB",
+  "theme_color": "#0B2A4A",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
