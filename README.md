@@ -7,6 +7,8 @@ Kathwada–Singarwa Road, Ahmedabad.
 **Live:** https://omegasolarproducts.com
 **Repository:** https://github.com/instackout/omegasolarproducts
 
+**Coding agents:** see [AGENTS.md](AGENTS.md) (open [agents.md](https://agents.md/) format; kept in sync on commit via `scripts/sync-agent-context.py`).
+
 ## What is in here
 
 | File                | Purpose |
@@ -19,6 +21,8 @@ Kathwada–Singarwa Road, Ahmedabad.
 | `favicon.ico`, `icon-*.png`, `apple-touch-icon.png` | Browser tab and home-screen icons |
 | `site.webmanifest`  | Lets the site be added to a phone home screen |
 | `robots.txt`, `sitemap.xml` | Search-engine instructions |
+| `AGENTS.md`, `.agents/` | Instructions and architecture notes for AI coding agents |
+| `scripts/sync-agent-context.py` | Refreshes auto-generated metrics in `AGENTS.md` |
 
 No build step, no dependencies, no server. Editing `index.html` and
 committing publishes the change within about a minute.

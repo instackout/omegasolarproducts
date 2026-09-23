@@ -1,0 +1,30 @@
+name: Agent context
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  agents-md:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate AGENTS.md auto section
+        run: python3 scripts/sync-agent-context.py
+
+      - name: Fail if AGENTS.md is out of date
+        run: |
+          if ! git diff --quiet AGENTS.md; then
+            echo "::error::AGENTS.md auto section is stale. Run: python3 scripts/sync-agent-context.py"
+            git diff AGENTS.md
+            exit 1
+          fi
+
+      - name: Verify 404.html matches index.html
+        run: |
+          if ! cmp -s index.html 404.html; then
+            echo "::error::404.html must match index.html (cp index.html 404.html)"
+            exit 1
+          fi
