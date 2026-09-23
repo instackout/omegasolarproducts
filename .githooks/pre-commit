@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+needs_sync=0
+while IFS= read -r -d '' path; do
+  case "$path" in
+    index.html|404.html|scripts/sync-agent-context.py|AGENTS.md|.agents/*)
+      needs_sync=1
+      break
+      ;;
+  esac
+done < <(git diff --cached --name-only -z 2>/dev/null || true)
+
+if [[ "$needs_sync" -eq 0 ]]; then
+  exit 0
+fi
+
+python3 scripts/sync-agent-context.py
+
+if ! git diff --quiet AGENTS.md; then
+  git add AGENTS.md
+  echo "pre-commit: refreshed AGENTS.md (auto section) and re-staged it."
+fi
+
+exit 0
