@@ -272,7 +272,7 @@ button { font: inherit; }
   color: #E9F0F9;
 }
 .hero__grid { position: absolute; inset: 0; opacity: .30; pointer-events: none; }
-.hero__in { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: 28px; align-items: center; min-height: 640px; padding: 74px 0 84px; }
+.hero__in { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 36px; align-items: center; min-height: 0; padding: 48px 0 22px; }
 .hero__copy { max-width: 560px; }
 .hero h1 { font-size: clamp(38px, 5.1vw, 60px); font-weight: 600; letter-spacing: -.03em; margin: 16px 0 0; }
 .hero h1 em { font-style: normal; color: var(--amber); }
@@ -281,6 +281,89 @@ button { font: inherit; }
 .hero__meta { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 34px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .12); }
 .hero__meta span { font-family: var(--ff-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: #8FA8C4; display: inline-flex; align-items: center; gap: 7px; }
 .hero__meta span::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green-lt); }
+
+/* hero product carousel — photo well matches catalogue cards */
+.hcar {
+  position: relative; min-width: 0;
+  border-radius: var(--r-l);
+  border: 1px solid rgba(255, 255, 255, .16);
+  background: rgba(6, 22, 39, .28);
+  box-shadow: 0 28px 60px -32px rgba(0, 0, 0, .75);
+  overflow: hidden;
+  outline: none;
+}
+.hcar:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.hcar__prog { height: 3px; background: rgba(255, 255, 255, .10); }
+.hcar__prog > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--green-lt), var(--amber)); }
+.hcar.is-run .hcar__prog > span { animation: hcarprog 5.2s linear; }
+@keyframes hcarprog { from { width: 0; } to { width: 100%; } }
+.hcar__track { display: grid; }
+.hcar__slide {
+  grid-area: 1 / 1;
+  display: flex; flex-direction: column; min-height: 0;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .45s ease;
+}
+.hcar__slide.is-on { opacity: 1; visibility: visible; pointer-events: auto; z-index: 1; }
+.hcar__vis {
+  position: relative; display: block; height: 340px; overflow: hidden;
+  background: linear-gradient(180deg, #FCFDFF 0%, #EFF3F8 62%, #DFE5ED 100%);
+}
+.hcar__vis img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 16px 20px 8px; }
+.hcar__ph { display: grid; place-items: center; height: 100%; color: #9DB0C6; }
+.hcar__ph svg { width: 54px; height: 54px; }
+.hcar__render {
+  position: absolute; top: 12px; right: 12px;
+  padding: 3px 8px; border-radius: 5px;
+  background: rgba(255, 255, 255, .82); border: 1px solid rgba(11, 42, 74, .14);
+  color: #56657C; font-family: var(--ff-mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+}
+.hcar__meta { padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 6px; }
+.hcar__nm { font-size: clamp(20px, 2vw, 26px); }
+.hcar__nm a { color: #fff; text-decoration: none; }
+.hcar__nm a:hover { color: var(--amber-lt); }
+.hcar__part { margin: 0; color: #8FA8C4; font-size: 12px; letter-spacing: .04em; }
+.hcar__bl {
+  margin: 2px 0 0; color: #C5D4E6; font-size: 13.5px; line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.hcar__chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+.hcar__row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+.hcar__acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.hcar__dock {
+  position: absolute; z-index: 3; top: 14px; left: 14px;
+  display: flex; pointer-events: none;
+}
+.hcar__nav {
+  display: flex; align-items: center; gap: 4px; pointer-events: auto;
+  padding: 4px; border-radius: 999px;
+  background: rgba(6, 22, 39, .72); border: 1px solid rgba(255, 255, 255, .18);
+  backdrop-filter: blur(8px);
+}
+.hcar__btn {
+  width: 36px; height: 36px; border-radius: 8px; cursor: pointer;
+  display: grid; place-items: center; color: #EAF1FA;
+  background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .22);
+}
+.hcar__btn:hover { border-color: var(--amber); background: rgba(245, 166, 35, .14); color: var(--amber-lt); }
+.hcar__count { font-family: var(--ff-mono); font-size: 12px; letter-spacing: .06em; color: #8FA8C4; min-width: 4.6em; text-align: center; }
+.hcar__count b { color: #fff; font-weight: 500; }
+.hero__foot { position: relative; padding: 6px 0 28px; }
+.hero__railhd { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.hero__railn { font-family: var(--ff-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #8FA8C4; }
+.hcar__rail {
+  display: flex; gap: 8px; overflow-x: auto; padding: 4px 84px 14px 4px;
+  scroll-snap-type: x mandatory; scroll-padding-inline: 4px;
+  scrollbar-width: thin; scrollbar-color: rgba(245, 166, 35, .75) rgba(255, 255, 255, .08);
+}
+.hcar__thumb {
+  flex: none; width: 72px; height: 72px; padding: 6px; cursor: pointer; scroll-snap-align: center;
+  border-radius: 10px; border: 1px solid rgba(255, 255, 255, .18);
+  background: linear-gradient(180deg, #FCFDFF 0%, #E7EEF6 100%);
+}
+.hcar__thumb img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; }
+.hcar__thumb.is-on { border-color: var(--amber); box-shadow: 0 0 0 2px rgba(245, 166, 35, .45); }
+.hcar__thumb:hover { border-color: rgba(245, 166, 35, .8); }
 
 .stage { position: relative; aspect-ratio: 5 / 4; min-height: 300px; min-width: 0; }
 .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; display: block; }
@@ -596,9 +679,10 @@ button { font: inherit; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 1040px) {
-  .hero__in { grid-template-columns: 1fr; min-height: 0; padding: 56px 0 48px; }
+  .hero__in { grid-template-columns: 1fr; min-height: 0; padding: 40px 0 18px; }
   .hero__copy { max-width: 640px; }
   .hero__in > * { min-width: 0; }
+  .hcar__vis { height: 280px; }
   .stage { aspect-ratio: 4 / 3; min-height: 0; }
   .cats, .plist, .why, .contactcard { grid-template-columns: repeat(2, 1fr); }
   .stats { grid-template-columns: repeat(2, 1fr); }
@@ -632,6 +716,8 @@ button { font: inherit; }
   .wa { padding: 13px; right: 14px; bottom: 14px; }
   .wa span { display: none; }
   .stats { grid-template-columns: 1fr 1fr; }
+  .hcar__vis { height: 220px; }
+  .hero__railhd { flex-direction: column; gap: 4px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2896,11 +2982,19 @@ root.OPHOTOS = P;
   function productDisplay(p) {
     return productShot(p);
   }
+  /* Catalogue cover for a listing. Every product <img> on the site
+     (cards, rows, search, comparison, hero carousel, gallery default)
+     must use this src so one OPHOTOS record updates every surface. */
   function cover(p) {
     var prod = productShot(p);
     if (prod) return prod.src;
     var r = renderShots(p);
     return r.length ? r[0].src : null;
+  }
+  function productImg(p, alt, extra) {
+    var src = cover(p);
+    if (!src) return '';
+    return '<img src="' + src + '" alt="' + esc(alt || '') + '"' + (extra || '') + '>';
   }
 
   /* ---------------- helpers ---------------- */
@@ -2954,6 +3048,8 @@ root.OPHOTOS = P;
     grid: SV('<rect x="3.5" y="3.5" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="7" rx="1"/><rect x="3.5" y="13.5" width="7" height="7" rx="1"/><rect x="13.5" y="13.5" width="7" height="7" rx="1"/>', ' width="16" height="16"'),
     list: SV('<path d="M4 6h16M4 12h16M4 18h16"/>', ' width="16" height="16"'),
     zoom: SV('<circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.7-4.7M10.5 8v5M8 10.5h5"/>', ' width="17" height="17"'),
+    pause: SV('<path d="M8 5v14M16 5v14"/>', ' width="16" height="16"'),
+    play: SV('<path d="M8 5.5v13l11-6.5z"/>', ' width="16" height="16"'),
     left: SV('<path d="m14 6-6 6 6 6"/>', ' width="20" height="20"'),
     right: SV('<path d="m10 6 6 6-6 6"/>', ' width="20" height="20"'),
     close: SV('<path d="M6 6l12 12M18 6 6 18"/>', ' width="18" height="18"'),
@@ -3104,7 +3200,12 @@ root.OPHOTOS = P;
     c.remove();
   }
 
+  var heroTick = null;
+  function stopHeroCarousel() {
+    if (heroTick) { clearInterval(heroTick); heroTick = null; }
+  }
   function killScene() {
+    stopHeroCarousel();
     LIVE.forEach(function (v) { v.destroy(); });
     LIVE = [];
     OBS.forEach(function (o) { o.disconnect(); });
@@ -3176,8 +3277,8 @@ root.OPHOTOS = P;
     tray.innerHTML = CMP.length
       ? '<span class="cmptray__lbl">Comparing</span>' +
         CMP.map(function (id) {
-          var p = byId(id), img = p ? cover(p) : null;
-          return '<span class="cmptray__i">' + (img ? '<img src="' + img + '" alt="">' : '') +
+          var p = byId(id);
+          return '<span class="cmptray__i">' + (p ? productImg(p, '') : '') +
             esc(p ? p.name : id) +
             '<button class="cmptray__x" data-cmpdel="' + id + '" aria-label="Remove">' + ICO.close + '</button></span>';
         }).join('') +
@@ -3210,9 +3311,8 @@ root.OPHOTOS = P;
     modal('Compare parts',
       '<div class="tblwrap"><table class="cmptbl"><thead><tr><th></th>' +
       items.map(function (p) {
-        var img = cover(p);
         return '<th><a href="#/product/' + p.id + '" class="cmptbl__h">' +
-          (img ? '<img src="' + img + '" alt="">' : '') +
+          productImg(p, '') +
           '<span>' + esc(p.name) + '</span><span class="mono">' + esc(p.part) + '</span></a></th>';
       }).join('') + '</tr></thead><tbody>' +
       '<tr><th scope="row">Category</th>' + items.map(function (p) { return '<td>' + esc((catById(p.cat) || {}).name) + '</td>'; }).join('') + '</tr>' +
@@ -3263,9 +3363,8 @@ root.OPHOTOS = P;
     return '<div class="sechd rv" style="margin:56px 0 22px"><div class="sechd__l">' +
       '<p class="eyebrow">Recently viewed</p><h2 style="font-size:24px;margin-top:8px">Back to what you were pricing</h2></div></div>' +
       '<div class="recent">' + list.map(function (p) {
-        var img = cover(p);
         return '<a class="recent__i" href="#/product/' + p.id + '">' +
-          (img ? '<img src="' + img + '" alt="" loading="lazy">' : '') +
+          (productImg(p, '', ' loading="lazy"') || '') +
           '<span>' + esc(p.name) + '</span><span class="mono">' + esc(p.part) + '</span></a>';
       }).join('') + '</div>';
   }
@@ -3363,12 +3462,10 @@ root.OPHOTOS = P;
     opts = opts || {};
     var c = catById(p.cat);
     var shown = p.sizes.slice(0, 3), rest = p.sizes.length - shown.length;
-    var img = cover(p);
+    var img = productImg(p, p.name + (productShot(p) ? '' : ' — studio render'), ' loading="lazy" decoding="async"');
     return '<article class="pcard rv" data-pid="' + p.id + '">' +
       '<a class="pcard__vis" href="#/product/' + p.id + '" aria-label="' + esc(p.name) + '">' +
-      (img
-        ? '<img src="' + img + '" alt="' + esc(p.name) + (productShot(p) ? '' : ' — studio render') + '" loading="lazy" decoding="async">'
-        : '<span class="pcard__ph">' + ICO.box3d + '</span>') +
+      (img || '<span class="pcard__ph">' + ICO.box3d + '</span>') +
       '<span class="pcard__tag">' + esc(p.part) + '</span>' +
       (productShot(p) ? '' : '<span class="pcard__render">3D render</span>') +
       '</a>' +
@@ -3388,10 +3485,10 @@ root.OPHOTOS = P;
 
   // dense row for the list view — the layout spec buyers actually scan
   function prow(p) {
-    var c = catById(p.cat), img = cover(p);
+    var c = catById(p.cat);
     return '<article class="prow rv" data-pid="' + p.id + '">' +
       '<a class="prow__vis" href="#/product/' + p.id + '">' +
-      (img ? '<img src="' + img + '" alt="' + esc(p.name) + '" loading="lazy" decoding="async">' : ICO.box3d) + '</a>' +
+      (productImg(p, p.name, ' loading="lazy" decoding="async"') || ICO.box3d) + '</a>' +
       '<div class="prow__main">' +
       '<p class="eyebrow">' + esc(c ? c.name : '') + (p.brand !== 'Omega' ? ' · ' + esc(p.brand) : '') + '</p>' +
       '<h3 class="prow__nm"><a href="#/product/' + p.id + '">' + esc(p.name) + '</a></h3>' +
@@ -3418,8 +3515,57 @@ root.OPHOTOS = P;
   }
 
   /* ---------------- pages ---------------- */
+  function pad2(n) { n = String(n); return n.length < 2 ? '0' + n : n; }
+
+  function heroCarouselHTML() {
+    var n = PRODUCTS.length;
+    var slides = PRODUCTS.map(function (p, i) {
+      var c = catById(p.cat);
+      var on = i === 0;
+      var alt = p.name + (productShot(p) ? '' : ' — studio render');
+      var img = productImg(p, alt, (on ? ' decoding="async" fetchpriority="high"' : ' loading="lazy" decoding="async"'));
+      return '<article class="hcar__slide' + (on ? ' is-on' : '') + '" id="heroSlide' + i + '" role="tabpanel" aria-labelledby="heroTab' + i + '"' + (on ? '' : ' aria-hidden="true" inert') + '>' +
+        '<a class="hcar__vis" href="#/product/' + p.id + '">' +
+        (img || '<span class="hcar__ph">' + ICO.box3d + '</span>') +
+        (img && !productShot(p) ? '<span class="hcar__render">3D render</span>' : '') +
+        '</a>' +
+        '<div class="hcar__meta">' +
+        '<p class="eyebrow eyebrow--amber">' + esc(c ? c.name : 'Catalogue') + '</p>' +
+        '<h2 class="hcar__nm"><a href="#/product/' + p.id + '">' + esc(p.name) + '</a></h2>' +
+        '<p class="mono hcar__part">' + esc(p.part) + (p.brand && p.brand !== 'Omega' ? ' · ' + esc(p.brand) : '') + '</p>' +
+        '<p class="hcar__bl">' + esc(p.blurb) + '</p>' +
+        '<div class="hcar__chips">' + p.sizes.slice(0, 3).map(function (s2) { return '<span class="chip">' + esc(s2) + '</span>'; }).join('') +
+        (p.sizes.length > 3 ? '<span class="chip chip--more">+' + (p.sizes.length - 3) + '</span>' : '') + '</div>' +
+        '<div class="hcar__acts">' +
+        '<a class="btn btn--amber btn--sm" href="#/product/' + p.id + '">View part' + ICO.arrow + '</a>' +
+        '<button type="button" class="btn btn--onDark btn--sm js-add" data-pid="' + p.id + '">' + ICO.plus + 'Inquiry</button>' +
+        '</div></div></article>';
+    }).join('');
+    var thumbs = PRODUCTS.map(function (p, i) {
+      var on = i === 0;
+      return '<button type="button" class="hcar__thumb' + (on ? ' is-on' : '') + '" id="heroTab' + i + '" role="tab" aria-selected="' + (on ? 'true' : 'false') + '" aria-controls="heroSlide' + i + '" data-i="' + i + '" aria-label="' + esc(p.name) + '">' +
+        (productImg(p, '') || ICO.box3d) + '</button>';
+    }).join('');
+    return {
+      stage: '<div class="hcar" id="heroCarousel" tabindex="0" role="region" aria-roledescription="carousel" aria-label="All ' + n + ' catalogue products">' +
+        '<div class="hcar__prog" aria-hidden="true"><span id="heroProg"></span></div>' +
+        '<div class="hcar__track">' + slides + '</div>' +
+        '<div class="hcar__dock"><div class="hcar__nav">' +
+        '<button type="button" class="hcar__btn" id="heroPrev" aria-label="Previous product">' + ICO.left + '</button>' +
+        '<span class="hcar__count" id="heroCount"><b>01</b> / ' + pad2(n) + '</span>' +
+        '<button type="button" class="hcar__btn" id="heroNext" aria-label="Next product">' + ICO.right + '</button>' +
+        '<button type="button" class="hcar__btn" id="heroPlay" aria-pressed="true" aria-label="Pause automatic rotation">' + ICO.pause + '</button>' +
+        '</div></div></div>',
+      rail: '<div class="wrap hero__foot">' +
+        '<div class="hero__railhd"><p class="eyebrow eyebrow--amber">Full catalogue</p>' +
+        '<span class="hero__railn">' + n + ' parts · select any thumbnail</span></div>' +
+        '<div class="hcar__rail" id="heroRail" role="tablist" aria-label="All products">' + thumbs + '</div></div>'
+    };
+  }
+
   function pageHome() {
     var feat = PRODUCTS.filter(function (p) { return p.featured; }).slice(0, 6);
+    var hero = heroCarouselHTML();
     return '<section class="hero"><div class="hero__grid" aria-hidden="true">' +
       '<svg width="100%" height="100%"><defs><pattern id="g" width="46" height="46" patternUnits="userSpaceOnUse">' +
       '<path d="M46 0H0v46" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="1"/></pattern></defs>' +
@@ -3428,18 +3574,17 @@ root.OPHOTOS = P;
       '<div class="hero__copy">' +
       '<p class="eyebrow eyebrow--amber">MFG. &amp; Traders · Kathwada, Ahmedabad</p>' +
       '<h1>The balance of system, <em>held in stock</em> — not quoted from a photograph.</h1>' +
-      '<p class="hero__sub">Connectors, clamps, rails, earthing kits and Havells-built DB boxes for installers, EPC contractors and dealers. Every size below is a part number we can price today.</p>' +
+      '<p class="hero__sub">Connectors, clamps, rails, earthing kits and Havells-built DB boxes for installers, EPC contractors and dealers. Cycle the full range — every part number here is one we can price today.</p>' +
       '<div class="hero__acts">' +
       '<a class="btn btn--amber" href="#/quote">Request a quote</a>' +
       '<a class="btn btn--onDark" href="#/products">Browse the catalogue' + ICO.arrow + '</a>' +
       '</div>' +
       '<div class="hero__meta"><span>1500 V DC connectors</span><span>SS 304 &amp; GI hardware</span><span>Havells inside every DB box</span></div>' +
       '</div>' +
-      '<div class="stagewrap">' +
-      '<div class="stage" id="heroStage"><span class="stage__hint" id="heroHint">Drag to rotate the array</span></div>' +
-      viewbar('heroViews', false, true) +
+      hero.stage +
       '</div>' +
-      '</div></section>' +
+      hero.rail +
+      '</section>' +
 
       '<div class="strip"><div class="wrap strip__in">' +
       '<span class="strip__i">' + ICO.shield + '<span><b>Manufacturer &amp; Trader</b> · GST registered</span></span>' +
@@ -3799,7 +3944,7 @@ root.OPHOTOS = P;
   // Product photo by default; studio stills + live 3D when "3D render" is selected.
   function gallery(p) {
     var display = productDisplay(p), renders = renderShots(p);
-    var mainSrc = display ? display.src : null;
+    var mainSrc = display ? cover(p) : null;
     var mainCap = display ? (display.caption || 'Product image') : '';
     var hasPhoto = !!productShot(p);
     return '<div class="gal">' +
@@ -3878,7 +4023,7 @@ root.OPHOTOS = P;
         var im = ensureImg();
         im.hidden = false;
         if (none) none.hidden = true;
-        im.src = display.src;
+        im.src = cover(p) || display.src;
         im.alt = p.name + ' — ' + (prod ? (prod.caption || 'Product image') : 'Product image');
         if (cap) cap.textContent = prod ? (prod.caption || 'Product image') : 'Product image';
         if (zoom) zoom.hidden = false;
@@ -4028,9 +4173,9 @@ root.OPHOTOS = P;
     }
     var host = el('#findList');
     host.innerHTML = list.length ? list.map(function (p, i) {
-      var img = cover(p), c = catById(p.cat);
+      var c = catById(p.cat);
       return '<a class="findi' + (i === 0 ? ' is-on' : '') + '" href="#/product/' + p.id + '" data-i="' + i + '">' +
-        (img ? '<img src="' + img + '" alt="">' : '<span class="findi__ph"></span>') +
+        (productImg(p, '') || '<span class="findi__ph"></span>') +
         '<span class="findi__t"><b>' + esc(p.name) + '</b><span>' + esc(c ? c.name : '') + ' · ' + esc(p.sizes.slice(0, 3).join(', ')) + '</span></span>' +
         '<span class="mono findi__p">' + esc(p.part) + '</span></a>';
     }).join('') : '<p class="note" style="padding:18px">Nothing matches “' + esc(q) + '”. A lot of BOS material is supplied on request — ask us on WhatsApp.</p>';
@@ -4428,29 +4573,123 @@ root.OPHOTOS = P;
     return (m[seg[0]] || 'Page') + ' — ' + base;
   }
 
-  function afterHome() {
-    var stage = el('#heroStage');
-    if (stage) {
-      var base = { dist: 10.4, fov: 32, phi: 1.00, theta: 0.44, target: [0, 0.86, 0], spin: 0.075, minPhi: 0.08, maxPhi: 1.52 };
-      var v = mount(stage, HERO, base);
-      if (v) {
-        var hint = el('#heroHint');
-        stage.addEventListener('pointerdown', function () { if (hint) hint.style.opacity = '0'; }, { once: true });
-        var bar = el('#heroViews');
-        if (bar) {
-          els('button[data-view]', bar).forEach(function (btn) {
-            btn.addEventListener('click', function () {
-              var k = btn.getAttribute('data-view');
-              els('button[data-view]', bar).forEach(function (x) { x.classList.toggle('is-on', x === btn); });
-              v.setSpin(k === 'iso' ? 0.075 : 0);
-              var pr = k === 'iso' ? { theta: 0.44, phi: 1.00 } : VIEWS[k];
-              v.view({ theta: pr.theta, phi: k === 'top' ? 0.12 : pr.phi, dist: k === 'top' ? 9.4 : 10.4 });
-              if (hint) hint.style.opacity = '0';
-            });
-          });
-        }
+  function wireHeroCarousel() {
+    var box = el('#heroCarousel');
+    var rail = el('#heroRail');
+    if (!box) return;
+    var slides = els('.hcar__slide', box);
+    var thumbs = rail ? els('.hcar__thumb', rail) : [];
+    var n = slides.length;
+    if (!n) return;
+    var i = 0;
+    var reduce = root.matchMedia && root.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var playing = !reduce && n > 1;
+    var hovered = false;
+    var DUR = 5200;
+
+    function restartProg() {
+      var bar = el('#heroProg');
+      if (!bar) return;
+      bar.style.animation = 'none';
+      void bar.offsetWidth;
+      bar.style.animation = '';
+    }
+    function centerThumb() {
+      var th = thumbs[i];
+      if (!rail || !th) return;
+      var left = th.offsetLeft - (rail.clientWidth - th.offsetWidth) / 2;
+      rail.scrollTo({ left: Math.max(0, left), behavior: reduce ? 'auto' : 'smooth' });
+    }
+    function show(next) {
+      i = (next % n + n) % n;
+      slides.forEach(function (s, k) {
+        var on = k === i;
+        s.classList.toggle('is-on', on);
+        s.setAttribute('aria-hidden', on ? 'false' : 'true');
+        if (on) s.removeAttribute('inert');
+        else s.setAttribute('inert', '');
+      });
+      thumbs.forEach(function (t, k) {
+        var on = k === i;
+        t.classList.toggle('is-on', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      var count = el('#heroCount');
+      if (count) count.innerHTML = '<b>' + pad2(i + 1) + '</b> / ' + pad2(n);
+      centerThumb();
+      if (playing && !hovered) restartProg();
+    }
+    function tick() { show(i + 1); }
+    function arm() {
+      stopHeroCarousel();
+      box.classList.toggle('is-run', playing && !hovered);
+      if (playing && !hovered) {
+        restartProg();
+        heroTick = setInterval(tick, DUR);
       }
     }
+    function setPlaying(on) {
+      playing = !!on && n > 1;
+      var btn = el('#heroPlay');
+      if (btn) {
+        btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+        btn.setAttribute('aria-label', playing ? 'Pause automatic rotation' : 'Play automatic rotation');
+        btn.innerHTML = playing ? ICO.pause : ICO.play;
+      }
+      arm();
+    }
+    function step(d) { show(i + d); if (playing) arm(); }
+
+    var prev = el('#heroPrev'), next = el('#heroNext'), play = el('#heroPlay');
+    if (prev) prev.addEventListener('click', function () { step(-1); });
+    if (next) next.addEventListener('click', function () { step(1); });
+    if (play) play.addEventListener('click', function () { setPlaying(!playing); });
+    thumbs.forEach(function (t) {
+      t.addEventListener('click', function () { show(+t.getAttribute('data-i')); if (playing) arm(); });
+    });
+    function pauseHover() { hovered = true; box.classList.remove('is-run'); stopHeroCarousel(); }
+    function resumeHover() { hovered = false; if (playing) arm(); }
+    box.addEventListener('mouseenter', pauseHover);
+    box.addEventListener('mouseleave', resumeHover);
+    if (rail) {
+      rail.addEventListener('mouseenter', pauseHover);
+      rail.addEventListener('mouseleave', resumeHover);
+    }
+    box.addEventListener('focusin', pauseHover);
+    box.addEventListener('focusout', function (e) {
+      if (!box.contains(e.relatedTarget) && !(rail && rail.contains(e.relatedTarget))) resumeHover();
+    });
+    if (rail) {
+      rail.addEventListener('focusin', pauseHover);
+      rail.addEventListener('focusout', function (e) {
+        if (!rail.contains(e.relatedTarget) && !box.contains(e.relatedTarget)) resumeHover();
+      });
+    }
+    function onKeys(e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    }
+    box.addEventListener('keydown', onKeys);
+    if (rail) rail.addEventListener('keydown', onKeys);
+    var x0 = null;
+    box.addEventListener('pointerdown', function (e) {
+      x0 = null;
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      if (e.target.closest && e.target.closest('a, button')) return;
+      x0 = e.clientX;
+    });
+    box.addEventListener('pointerup', function (e) {
+      if (x0 == null) return;
+      var dx = e.clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 48) step(dx < 0 ? 1 : -1);
+    });
+    setPlaying(playing);
+    show(0);
+  }
+
+  function afterHome() {
+    wireHeroCarousel();
     wireCards(el('#app'));
     countUp(el('#app'));
   }

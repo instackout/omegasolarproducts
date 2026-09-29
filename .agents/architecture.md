@@ -19,7 +19,7 @@ Scripts run as sequential IIFEs on `window`:
 
 `location.hash` drives rendering into `#app`:
 
-- `#/` — home (hero WebGL array)
+- `#/` — home (hero copy + catalogue carousel; WebGL array remains on About)
 - `#/about` — about + secondary 3D figures
 - `#/products` and `#/products/<catId>` — catalogue list + filters
 - `#/product/<productId>` — detail, gallery, optional 3D + exploded view
