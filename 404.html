@@ -1046,7 +1046,7 @@ button { font: inherit; }
 }
 
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://omegasolarproducts.com/#business","name":"Omega Instruments","alternateName":"Omega Instruments — MFG. & Traders","slogan":"Clean Energy, Better Tomorrow","description":"Solar balance-of-system hardware — MC4 connectors, mounting clamps, rails, earthing kits and Havells-built ACDB/DCDB boxes. Manufacturer & trader, Kathwada, Ahmedabad. Quotation within 24 hours.","url":"https://omegasolarproducts.com","logo":"https://omegasolarproducts.com/icon-512.png","image":"https://omegasolarproducts.com/og-image.png","telephone":"+91-97230-16718","email":"omega.solarproducts@gmail.com","priceRange":"Quote on request","currenciesAccepted":"INR","address":{"@type":"PostalAddress","streetAddress":"No. 46, Gajanan Industrial Estate, Nr. Zaveri Estate, Kathwada–Singarwa Road","addressLocality":"Ahmedabad","postalCode":"382430","addressRegion":"Gujarat","addressCountry":"IN"},"areaServed":[{"@type":"State","name":"Gujarat"},{"@type":"Country","name":"India"}],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:30","closes":"19:00"}],"contactPoint":[{"@type":"ContactPoint","contactType":"sales","name":"Ashvin Patel","telephone":"+91-97230-16718","email":"omega.solarproducts@gmail.com","areaServed":"IN","availableLanguage":["en","gu","hi"]}],"knowsAbout":["MC4 solar connectors","Solar mounting structures","Earthing and lightning protection","ACDB and DCDB boxes","Solar panels","Solar inverters","Balance of system"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://omegasolarproducts.com/#business","name":"Omega Instruments","alternateName":"Omega Instruments — MFG. & Traders","slogan":"Clean Energy, Better Tomorrow","description":"Solar balance-of-system hardware — MC4 connectors, mounting clamps, rails, earthing kits and Havells-built ACDB/DCDB boxes. Manufacturer & trader, Kathwada, Ahmedabad. Quotation within 24 hours.","url":"https://omegasolarproducts.com","logo":"https://omegasolarproducts.com/icon-512.png","image":"https://omegasolarproducts.com/og-image.png","telephone":"+91-99242-85642","email":"omega.solarproducts@gmail.com","priceRange":"Quote on request","currenciesAccepted":"INR","address":{"@type":"PostalAddress","streetAddress":"No. 46, Gajanan Industrial Estate, Nr. Zaveri Estate, Kathwada–Singarwa Road","addressLocality":"Ahmedabad","postalCode":"382430","addressRegion":"Gujarat","addressCountry":"IN"},"areaServed":[{"@type":"State","name":"Gujarat"},{"@type":"Country","name":"India"}],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:30","closes":"19:00"}],"contactPoint":[{"@type":"ContactPoint","contactType":"sales","telephone":"+91-99242-85642","email":"omega.solarproducts@gmail.com","areaServed":"IN","availableLanguage":["en","gu","hi"]},{"@type":"ContactPoint","contactType":"customer support","name":"Ashvin Patel","telephone":"+91-97230-16718","email":"omega.solarproducts@gmail.com","areaServed":"IN","availableLanguage":["en","gu","hi"]}],"knowsAbout":["MC4 solar connectors","Solar mounting structures","Earthing and lightning protection","ACDB and DCDB boxes","Solar panels","Solar inverters","Balance of system"]}</script>
 <script>
 /* ============================================================
    Omega Instruments — miniature WebGL engine
@@ -2335,15 +2335,15 @@ button { font: inherit; }
     person: 'Ashvin Patel',
     phone: '+91 97230 16718',
     phoneRaw: '919723016718',
-    office: '+91 99242 85642',
-    officeRaw: '919924285642',
+    sales: '+91 99242 85642',
+    salesRaw: '919924285642',
     email: 'omega.solarproducts@gmail.com',
     addr1: 'No. 46, Gajanan Industrial Estate',
     addr2: 'Nr. Zaveri Estate, Kathwada–Singarwa Road',
     addr3: 'Ahmedabad – 382430, Gujarat, India',
     hours: 'Mon – Sat, 9:30 am – 7:00 pm IST',
     site: 'omegasolarproducts.com',
-    maps: 'https://www.google.com/maps/search/?api=1&query=Gajanan+Industrial+Estate+Kathwada+Singarwa+Road+Ahmedabad+382430'
+    maps: 'https://maps.app.goo.gl/KJhfBM2QLp64e61M6'
   };
 
   var CATS = [
@@ -3009,8 +3009,9 @@ root.OPHOTOS = P;
   function catById(id) { return CATS.filter(function (c) { return c.id === id; })[0]; }
   function countIn(cid) { return PRODUCTS.filter(function (p) { return p.cat === cid; }).length; }
 
-  var WA = 'https://wa.me/' + C.phoneRaw;
+  var WA = 'https://wa.me/' + C.salesRaw;
   function waLink(msg) { return WA + '?text=' + encodeURIComponent(msg); }
+  function waPersonalLink(msg) { return 'https://wa.me/' + C.phoneRaw + '?text=' + encodeURIComponent(msg); }
 
   /* ---------------- icons ---------------- */
   var SV = function (d, extra) {
@@ -3422,7 +3423,7 @@ root.OPHOTOS = P;
       '<span class="findbtn__t">Find part</span><kbd>' + (root.navigator && /Mac/.test(root.navigator.platform) ? '⌘K' : 'Ctrl K') + '</kbd></button>' +
       '<a class="btn btn--ghost btn--sm rfqbtn" href="#/quote">' + SV('<path d="M4 5h16M6 5l1.6 10.5h9L18 8H6.6"/><circle cx="9" cy="19" r="1.3"/><circle cx="16" cy="19" r="1.3"/>', ' width="17" height="17"') +
       '<span class="btn--label">Inquiry list</span><span class="rfqbtn__badge" id="rfqCount" style="display:none">0</span></a>' +
-      '<a class="btn btn--primary btn--sm" href="tel:+' + C.phoneRaw + '">' + ICO.phone + '<span class="btn--label">' + esc(C.phone) + '</span></a>' +
+      '<a class="btn btn--primary btn--sm" href="tel:+' + C.salesRaw + '">' + ICO.phone + '<span class="btn--label">' + esc(C.sales) + '</span></a>' +
       '</div>' +
       '<div class="mega" id="mega"><div class="wrap"><div class="mega__grid">' +
       CATS.map(function (c) {
@@ -3447,8 +3448,8 @@ root.OPHOTOS = P;
       CATS.slice(5).map(function (c) { return '<a href="#/products/' + c.id + '">' + esc(c.name) + '</a>'; }).join('') +
       '<a href="#/quote">Bulk inquiry</a><a href="#/catalog">Brochure</a><a href="#/about">About us</a></div></div>' +
       '<div><h4>Reach Ashvin Patel</h4><div class="ftr__col">' +
-      '<a href="tel:+' + C.phoneRaw + '">' + esc(C.phone) + ' — mobile</a>' +
-      '<a href="tel:+' + C.officeRaw + '">' + esc(C.office) + ' — office</a>' +
+      '<a href="tel:+' + C.phoneRaw + '">' + esc(C.phone) + ' — ' + esc(C.person) + ' (personal)</a>' +
+      '<a href="tel:+' + C.salesRaw + '">' + esc(C.sales) + ' — sales</a>' +
       '<a href="mailto:' + esc(C.email) + '">' + esc(C.email) + '</a>' +
       '<a href="' + C.maps + '" target="_blank" rel="noopener">' + esc(C.addr1) + ',<br>' + esc(C.addr2) + ',<br>' + esc(C.addr3) + '</a>' +
       '</div></div></div>' +
@@ -3509,8 +3510,8 @@ root.OPHOTOS = P;
       '<p>Build an inquiry list as you browse, or send the whole bill of quantities in one go. Wholesale and dealer quantities welcome — GST extra on all quotes.</p></div>' +
       '<div class="ctaband__acts">' +
       '<a class="btn btn--amber btn--block" href="#/quote">Start a bulk inquiry</a>' +
-      '<a class="btn btn--onDark btn--block" href="' + waLink('Hello Omega Instruments, I would like a quotation for solar BOS material.') + '" target="_blank" rel="noopener">' + ICO.wa + 'WhatsApp ' + esc(C.phone) + '</a>' +
-      '<a class="btn btn--onDark btn--block" href="tel:+' + C.phoneRaw + '">' + ICO.phone + 'Call ' + esc(C.person) + '</a>' +
+      '<a class="btn btn--onDark btn--block" href="' + waLink('Hello Omega Instruments, I would like a quotation for solar BOS material.') + '" target="_blank" rel="noopener">' + ICO.wa + 'WhatsApp ' + esc(C.sales) + '</a>' +
+      '<a class="btn btn--onDark btn--block" href="tel:+' + C.salesRaw + '">' + ICO.phone + 'Call sales — ' + esc(C.sales) + '</a>' +
       '</div></div></div></section>';
   }
 
@@ -3687,9 +3688,9 @@ root.OPHOTOS = P;
       '<p class="lede" style="font-size:15px">Takes the enquiry, prices it, and follows the dispatch. B2B buyers should have a name and a mobile number, not a contact form that disappears.</p>' +
       '<div class="qtyrow" style="margin-top:18px">' +
       '<a class="btn btn--primary" href="tel:+' + C.phoneRaw + '">' + ICO.phone + esc(C.phone) + '</a>' +
-      '<a class="btn btn--green" href="' + waLink('Hello ' + C.person + ', I would like to discuss a solar BOS requirement.') + '" target="_blank" rel="noopener">' + ICO.wa + 'WhatsApp</a>' +
+      '<a class="btn btn--green" href="' + waPersonalLink('Hello ' + C.person + ', I would like to discuss a solar BOS requirement.') + '" target="_blank" rel="noopener">' + ICO.wa + 'WhatsApp ' + esc(C.person.split(' ')[0]) + '</a>' +
       '</div>' +
-      '<p class="note" style="margin-top:16px">Office line ' + esc(C.office) + ' · ' + esc(C.hours) + '</p></div>' +
+      '<p class="note" style="margin-top:16px">Sales line ' + esc(C.sales) + ' · ' + esc(C.hours) + '</p></div>' +
       '<div class="panelbox"><p class="eyebrow">Quality &amp; certification</p>' +
       '<h2 style="font-size:24px;margin:10px 0 14px">Documents on request, badges when they are real.</h2>' +
       '<p class="lede" style="font-size:15px">We would rather leave this section honest than decorate it. Test certificates and material documentation are supplied with the consignment where the item carries them.</p>' +
@@ -4276,8 +4277,8 @@ root.OPHOTOS = P;
       '<section class="sec sec--tight"><div class="wrap">' +
       '<div class="contactcard">' +
       '<div class="cc"><span class="cat__ico">' + ICO.phone + '</span><h3 style="margin-top:12px">Phone</h3>' +
-      '<p><a href="tel:+' + C.phoneRaw + '">' + esc(C.phone) + '</a><br><span class="note">' + esc(C.person) + ' — mobile &amp; WhatsApp</span></p>' +
-      '<p style="margin-top:10px"><a href="tel:+' + C.officeRaw + '">' + esc(C.office) + '</a><br><span class="note">Office</span></p></div>' +
+      '<p><a href="tel:+' + C.salesRaw + '">' + esc(C.sales) + '</a><br><span class="note">Sales &amp; WhatsApp inquiries</span></p>' +
+      '<p style="margin-top:10px"><a href="tel:+' + C.phoneRaw + '">' + esc(C.phone) + '</a><br><span class="note">' + esc(C.person) + ' — personal</span></p></div>' +
       '<div class="cc"><span class="cat__ico">' + ICO.mail + '</span><h3 style="margin-top:12px">Email</h3>' +
       '<p><a href="mailto:' + esc(C.email) + '">' + esc(C.email) + '</a><br><span class="note">Send BOQs and drawings here</span></p>' +
       '<p style="margin-top:10px" class="note">' + ICO.clock + ' ' + esc(C.hours) + '</p></div>' +
