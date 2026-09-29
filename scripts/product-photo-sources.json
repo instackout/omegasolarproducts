@@ -1,36 +1,135 @@
 {
-  "_comment": "Wikimedia Commons file titles (without File: prefix). CC-licensed reference photos for catalogue defaults.",
-  "mc4": { "file": "MC4 Connector Front and Top View.jpg", "caption": "MC4 connector pair (reference)" },
-  "mc4y": { "file": "Dornbirn-MC4-multiple connector-09ASD.jpg", "caption": "MC4 multi-branch connector (reference)" },
-  "panel": { "file": "Solar panels on house roof.jpg", "caption": "Module array on rooftop (reference)" },
-  "inverter": { "file": "Dornbirn-Mastervolt inverter QS 6400 ENS-05ASD.jpg", "caption": "String inverter installation (reference)" },
-  "battery": { "file": "Tesla Powerwall 2.jpg", "caption": "Wall-mounted battery storage (reference)" },
-  "rail": { "file": "Solar panels on roof of house in Boston Massachusetts.jpg", "caption": "Rail-mounted PV array (reference)" },
-  "clampMid": { "file": "Solar panels on roof of house in Boston Massachusetts.jpg", "caption": "Mid-clamp zone on module edge (reference)" },
-  "clampEnd": { "file": "Solar panels on roof of house in Boston Massachusetts.jpg", "caption": "End-clamp zone on module edge (reference)" },
-  "duckChannel": { "file": "Cable tray.jpg", "caption": "Cable routing tray (reference)" },
-  "patti": { "file": "Cable tray.jpg", "caption": "Support channel (reference)" },
-  "springNut": { "file": "Dornbirn-MC 4 connectors-01ASD.jpg", "caption": "Channel hardware on rail (reference)" },
-  "railNut": { "file": "Dornbirn-MC 4 connectors-01ASD.jpg", "caption": "Rail channel nut (reference)" },
-  "giClamp": { "file": "Ground clamp.jpg", "caption": "Grounding clamp (reference)" },
-  "drainClamp": { "file": "Pipe clamp.jpg", "caption": "Pipe / drain clamp (reference)" },
-  "earthKit": { "file": "Earthing system.jpg", "caption": "Earthing kit components (reference)" },
-  "laRod": { "file": "Lightning rod 2.jpg", "caption": "Lightning arrester rod (reference)" },
-  "earthCable": { "file": "Earthing copper cable.jpg", "caption": "Earthing conductor (reference)" },
-  "basePlate": { "file": "Foundation anchor plate.jpg", "caption": "Base plate (reference)" },
-  "pitCover": { "file": "Manhole cover in grass.jpg", "caption": "Inspection chamber cover (reference)" },
-  "zincSpray": { "file": "Cold galvanizing spray.jpg", "caption": "Zinc-rich spray (reference)" },
-  "acdb": { "file": "Electrical panel with door open.jpg", "caption": "AC distribution board (reference)" },
-  "dcdb": { "file": "Electrical panel with door open.jpg", "caption": "DC combiner enclosure (reference)" },
-  "isolator": { "file": "Knife switch.jpg", "caption": "DC isolator switch (reference)" },
-  "uBolt": { "file": "U-bolt.jpg", "caption": "U-bolt hardware (reference)" },
-  "jBolt": { "file": "Installing anchor bolts.jpg", "caption": "J-bolt anchor (reference)" },
-  "lBolt": { "file": "HD-bolts.jpg", "caption": "L-bolt anchor (reference)" },
-  "anchor": { "file": "Concrete anchor bolt.jpg", "caption": "Expansion anchor (reference)" },
-  "jHook": { "file": "Hook bolt.jpg", "caption": "J-hook fastener (reference)" },
-  "flangeNut": { "file": "Flange nut.jpg", "caption": "Flange nut (reference)" },
-  "insulator": { "file": "Ceramic insulator.jpg", "caption": "Stand-off insulator (reference)" },
-  "cableTie": { "file": "Cable ties.jpg", "caption": "UV cable ties (reference)" },
-  "polycap": { "file": "PVC conduit.jpg", "caption": "PVC conduit end cap (reference)" },
-  "pvcPipe": { "file": "PVC conduit.jpg", "caption": "PVC conduit fittings (reference)" }
+  "_comment": "Catalogue product photographs. `file` is a Wikimedia Commons title (CC or public domain). `local` is a studio reference shot in this repo, used when no accurate Commons photograph of that hardware exists. Captions are shown under the product image.",
+  "mc4": {
+    "file": "MC4 Connector Front and Top View.jpg",
+    "caption": "MC4 male and female connectors"
+  },
+  "mc4y": {
+    "file": "Dornbirn-MC4-multiple connector-09ASD.jpg",
+    "caption": "MC4 Y-branch connectors"
+  },
+  "cableTie": {
+    "file": "Bridas de nylon blancas y negras.jpg",
+    "caption": "Nylon cable ties, including black UV-rated ties"
+  },
+  "polycap": {
+    "file": "Plastic tubing.jpg",
+    "caption": "Grey PVC electrical conduit"
+  },
+  "pvcPipe": {
+    "local": "scripts/reference-photos/pvc-pipe-fittings.webp",
+    "caption": "Grey PVC pipe, elbow and tee"
+  },
+  "clampMid": {
+    "local": "scripts/reference-photos/solar-mid-clamp.webp",
+    "caption": "Aluminium mid clamp between two module frames"
+  },
+  "clampEnd": {
+    "local": "scripts/reference-photos/solar-end-clamp.webp",
+    "caption": "Aluminium end clamp on a module frame"
+  },
+  "rail": {
+    "local": "scripts/reference-photos/aluminium-solar-rail.webp",
+    "caption": "Aluminium solar mounting rail"
+  },
+  "railNut": {
+    "local": "scripts/reference-photos/solar-rail-nut.webp",
+    "caption": "Drop-in rail nuts"
+  },
+  "springNut": {
+    "file": "Spring Nut.jpg",
+    "caption": "Spring-loaded channel nut"
+  },
+  "duckChannel": {
+    "local": "scripts/reference-photos/gi-duck-channel.webp",
+    "caption": "Galvanised channel section"
+  },
+  "basePlate": {
+    "local": "scripts/reference-photos/gi-base-plate.webp",
+    "caption": "Square base plate with anchor holes"
+  },
+  "jHook": {
+    "local": "scripts/reference-photos/solar-roof-hook.webp",
+    "caption": "Roof hooks with fixing holes"
+  },
+  "patti": {
+    "local": "scripts/reference-photos/gi-patti.webp",
+    "caption": "Galvanised splice strip"
+  },
+  "jBolt": {
+    "local": "scripts/reference-photos/ss-j-bolt.webp",
+    "caption": "Stainless J bolts with nuts and EPDM washers"
+  },
+  "uBolt": {
+    "local": "scripts/reference-photos/solar-u-bolt.webp",
+    "caption": "U bolts with saddle plates"
+  },
+  "giClamp": {
+    "local": "scripts/reference-photos/gi-clamp.webp",
+    "caption": "Galvanised clamps for square tube"
+  },
+  "lBolt": {
+    "file": "INBUS RIPP Serrated hex soc head cap screws with flange by Bauer and Schaurte Karcher GmbH Neuss Germany.jpg",
+    "caption": "Socket-head cap bolts"
+  },
+  "flangeNut": {
+    "file": "Serrated hex flange nut.jpg",
+    "caption": "Serrated flange nuts"
+  },
+  "anchor": {
+    "file": "Ancor bolt for concrete.JPG",
+    "caption": "Concrete expansion anchors"
+  },
+  "earthKit": {
+    "local": "scripts/reference-photos/earthing-kit.webp",
+    "caption": "Earthing kit: rods, arrester, compound and pit"
+  },
+  "laRod": {
+    "file": "Conventional Lightning Rod (46429374125).jpg",
+    "caption": "Lightning arrester rod"
+  },
+  "insulator": {
+    "local": "scripts/reference-photos/pvc-insulator.webp",
+    "caption": "Threaded PVC standoff insulators"
+  },
+  "earthCable": {
+    "file": "Portable grounding rod.jpg",
+    "caption": "Copper earthing cable"
+  },
+  "pitCover": {
+    "local": "scripts/reference-photos/earth-pit-cover.webp",
+    "caption": "Earth-pit inspection cover"
+  },
+  "acdb": {
+    "file": "Small house distribution panel 2.jpg",
+    "caption": "AC distribution board with MCBs and surge protection"
+  },
+  "dcdb": {
+    "file": "2021-10-30 Generatoranschlusskasten.jpg",
+    "caption": "DC combiner box with string fuses"
+  },
+  "isolator": {
+    "file": "Utility Disconnect Switch.png",
+    "caption": "Enclosed isolation switch"
+  },
+  "panel": {
+    "file": "Monocrystalline solar panel.png",
+    "caption": "Monocrystalline PV modules"
+  },
+  "inverter": {
+    "file": "Onduleur pour photovoltaïque.jpg",
+    "caption": "Wall-mounted string inverter"
+  },
+  "battery": {
+    "file": "Inverter battery - Loom Solar.jpg",
+    "caption": "Solar inverter batteries"
+  },
+  "zincSpray": {
+    "local": "scripts/reference-photos/zinc-spray.webp",
+    "caption": "Zinc spray can"
+  },
+  "drainClamp": {
+    "local": "scripts/reference-photos/drain-clamp.webp",
+    "caption": "Stainless clamp on a module frame"
+  }
 }

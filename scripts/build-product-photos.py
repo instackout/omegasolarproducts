@@ -54,27 +54,6 @@ def resolve_file(title: str) -> str | None:
     return None
 
 
-def search_file(query: str) -> str | None:
-    data = api(
-        {
-            "action": "query",
-            "generator": "search",
-            "gsrsearch": query,
-            "gsrnamespace": "6",
-            "gsrlimit": "5",
-            "prop": "imageinfo",
-            "iiprop": "url",
-            "iiurlwidth": str(MAX_EDGE),
-        }
-    )
-    pages = data.get("query", {}).get("pages", {})
-    for page in sorted(pages.values(), key=lambda p: p.get("index", 0)):
-        info = (page.get("imageinfo") or [None])[0]
-        if info and info.get("thumburl"):
-            return info["thumburl"]
-    return None
-
-
 def download(url: str) -> bytes:
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     with urllib.request.urlopen(req, timeout=120) as resp:
@@ -95,6 +74,29 @@ def to_webp_data_url(raw: bytes) -> str:
     return f"data:image/webp;base64,{b64}"
 
 
+def load_raw(model: str, meta: dict, cache: dict[str, str]) -> tuple[str, str]:
+    """Return (data-url, source label). Raises if the image cannot be loaded."""
+    local = meta.get("local")
+    if local:
+        path = ROOT / local
+        if not path.is_file():
+            raise FileNotFoundError(path)
+        raw = path.read_bytes()
+        return to_webp_data_url(raw), str(local)
+
+    file_title = meta["file"]
+    url = resolve_file(file_title)
+    if not url:
+        # Exact Commons title only. A text search often returns a different object.
+        raise FileNotFoundError(f"Commons file not found: {file_title}")
+    if url in cache:
+        return cache[url], file_title
+    raw = download(url)
+    src = to_webp_data_url(raw)
+    cache[url] = src
+    return src, file_title
+
+
 def main() -> int:
     sources = json.loads(SOURCES_PATH.read_text())
     built: dict[str, dict] = {}
@@ -104,27 +106,14 @@ def main() -> int:
     for model, meta in sources.items():
         if model.startswith("_"):
             continue
-        file_title = meta["file"]
         caption = meta["caption"]
-        url = resolve_file(file_title)
-        if not url:
-            url = search_file(meta.get("search") or file_title.replace(".jpg", "").replace(".JPG", ""))
-        if not url:
-            failures.append(model)
-            print(f"FAIL {model}: no image for {file_title}", file=sys.stderr)
-            continue
         try:
-            if url in cache:
-                src = cache[url]
-            else:
-                raw = download(url)
-                src = to_webp_data_url(raw)
-                cache[url] = src
+            src, origin = load_raw(model, meta, cache)
             built[model] = {
                 "view": "product",
                 "caption": caption,
                 "src": src,
-                "source": file_title,
+                "source": origin,
             }
             kb = len(src) // 1024
             print(f"OK {model}: {kb} KiB data URL")
