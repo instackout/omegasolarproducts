@@ -2,7 +2,7 @@
 
 | Layer | What it is |
 |-------|------------|
-| **Product image** (default) | CC-licensed reference photographs from Wikimedia Commons (`scripts/product-photo-sources.json`) |
+| **Product image** (default) | Photographs matched to each product: Wikimedia Commons files where they depict that part, and studio shots in `scripts/reference-photos/` where no accurate public photo exists (`scripts/product-photo-sources.json`) |
 | **3D Render** | Optional studio geometry views (`hero`, `front`, `side`, `top`, `exploded`) from measured models |
 
 Regenerate reference photos:
