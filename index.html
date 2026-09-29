@@ -262,108 +262,97 @@ button { font: inherit; }
   font-size: 13px; color: var(--text-2);
 }
 
-/* ---------- hero ---------- */
+/* ---------- hero collage carousel ---------- */
 .hero {
   position: relative; overflow: hidden; isolation: isolate;
   background:
-    radial-gradient(120% 90% at 78% 18%, rgba(245, 166, 35, .20), transparent 55%),
-    radial-gradient(90% 70% at 12% 0%, rgba(30, 142, 78, .16), transparent 60%),
+    radial-gradient(120% 90% at 88% 0%, rgba(245, 166, 35, .22), transparent 52%),
+    radial-gradient(80% 70% at 0% 100%, rgba(30, 142, 78, .18), transparent 58%),
     linear-gradient(165deg, #0C3057 0%, #0A2340 46%, #05101E 100%);
   color: #E9F0F9;
 }
-.hero__grid { position: absolute; inset: 0; opacity: .30; pointer-events: none; }
-.hero__in { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 36px; align-items: center; min-height: 0; padding: 48px 0 22px; }
-.hero__copy { max-width: 560px; }
-.hero h1 { font-size: clamp(38px, 5.1vw, 60px); font-weight: 600; letter-spacing: -.03em; margin: 16px 0 0; }
-.hero h1 em { font-style: normal; color: var(--amber); }
-.hero__sub { color: #A9BFD8; font-size: 17.5px; margin: 18px 0 0; max-width: 50ch; }
-.hero__acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-.hero__meta { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 34px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .12); }
-.hero__meta span { font-family: var(--ff-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: #8FA8C4; display: inline-flex; align-items: center; gap: 7px; }
-.hero__meta span::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green-lt); }
-
-/* hero product carousel — photo well matches catalogue cards */
-.hcar {
-  position: relative; min-width: 0;
-  border-radius: var(--r-l);
-  border: 1px solid rgba(255, 255, 255, .16);
-  background: rgba(6, 22, 39, .28);
-  box-shadow: 0 28px 60px -32px rgba(0, 0, 0, .75);
-  overflow: hidden;
-  outline: none;
+.hero__in { position: relative; padding: 22px 0 18px; }
+.hcar { position: relative; min-width: 0; outline: none; }
+.hcar:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; border-radius: 20px; }
+.hcar__prog {
+  position: absolute; z-index: 2; top: 0; left: 18px; right: 18px; height: 3px;
+  background: rgba(255, 255, 255, .16); border-radius: 0 0 3px 3px; overflow: hidden;
 }
-.hcar:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
-.hcar__prog { height: 3px; background: rgba(255, 255, 255, .10); }
 .hcar__prog > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--green-lt), var(--amber)); }
 .hcar.is-run .hcar__prog > span { animation: hcarprog 5.2s linear; }
 @keyframes hcarprog { from { width: 0; } to { width: 100%; } }
 .hcar__track { display: grid; }
 .hcar__slide {
-  grid-area: 1 / 1;
-  display: flex; flex-direction: column; min-height: 0;
+  grid-area: 1 / 1; min-width: 0;
   opacity: 0; visibility: hidden; pointer-events: none;
-  transition: opacity .45s ease;
+  transition: opacity .5s ease;
 }
 .hcar__slide.is-on { opacity: 1; visibility: visible; pointer-events: auto; z-index: 1; }
-.hcar__vis {
-  position: relative; display: block; height: 340px; overflow: hidden;
-  background: linear-gradient(180deg, #FCFDFF 0%, #EFF3F8 62%, #DFE5ED 100%);
+.hcollage {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  aspect-ratio: 2 / 1;
+  gap: 8px; padding: 10px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  background:
+    radial-gradient(70% 80% at 0% 0%, rgba(30, 142, 78, .10), transparent 46%),
+    radial-gradient(60% 70% at 100% 100%, rgba(245, 166, 35, .14), transparent 50%),
+    linear-gradient(180deg, #F8FBFD 0%, #EEF3F8 100%);
+  box-shadow: 0 28px 60px -32px rgba(0, 0, 0, .75);
 }
-.hcar__vis img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 16px 20px 8px; }
-.hcar__ph { display: grid; place-items: center; height: 100%; color: #9DB0C6; }
-.hcar__ph svg { width: 54px; height: 54px; }
-.hcar__render {
-  position: absolute; top: 12px; right: 12px;
-  padding: 3px 8px; border-radius: 5px;
-  background: rgba(255, 255, 255, .82); border: 1px solid rgba(11, 42, 74, .14);
-  color: #56657C; font-family: var(--ff-mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+.hcollage__cell {
+  position: relative; display: block; min-width: 0; min-height: 0; overflow: hidden;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #FCFDFF 0%, #F3F6FA 100%);
+  border: 1px solid rgba(11, 42, 74, .08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .7);
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
 }
-.hcar__meta { padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 6px; }
-.hcar__nm { font-size: clamp(20px, 2vw, 26px); }
-.hcar__nm a { color: #fff; text-decoration: none; }
-.hcar__nm a:hover { color: var(--amber-lt); }
-.hcar__part { margin: 0; color: #8FA8C4; font-size: 12px; letter-spacing: .04em; }
-.hcar__bl {
-  margin: 2px 0 0; color: #C5D4E6; font-size: 13.5px; line-height: 1.45;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+.hcollage__cell:nth-child(1) { grid-column: 1 / span 2; grid-row: 1 / span 2; }
+.hcollage__cell:nth-child(2) { grid-column: 3 / span 2; grid-row: 1 / span 2; }
+.hcollage__cell:nth-child(3) { grid-column: 5 / span 2; grid-row: 1 / span 2; }
+.hcollage__cell:nth-child(4) { grid-column: 1; grid-row: 3; }
+.hcollage__cell:nth-child(5) { grid-column: 2; grid-row: 3; }
+.hcollage__cell:nth-child(6) { grid-column: 3; grid-row: 3; }
+.hcollage__cell:nth-child(7) { grid-column: 4; grid-row: 3; }
+.hcollage__cell:nth-child(8) { grid-column: 5; grid-row: 3; }
+.hcollage__cell:nth-child(9) { grid-column: 6; grid-row: 3; }
+.hcollage__cell:nth-child(10) { grid-column: 1 / span 2; grid-row: 4; }
+.hcollage__cell:nth-child(11) { grid-column: 3 / span 2; grid-row: 4; }
+.hcollage__cell:nth-child(12) { grid-column: 5 / span 2; grid-row: 4; }
+.hcollage__cell img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: contain; padding: 6%; display: block;
 }
-.hcar__chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
-.hcar__row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
-.hcar__acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-.hcar__dock {
-  position: absolute; z-index: 3; top: 14px; left: 14px;
-  display: flex; pointer-events: none;
+.hcollage__cell:hover,
+.hcollage__cell:focus-visible {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 2px rgba(245, 166, 35, .45);
+  transform: translateY(-1px);
+  z-index: 1;
 }
+.hcar__dock { display: flex; justify-content: center; padding: 14px 0 4px; }
 .hcar__nav {
-  display: flex; align-items: center; gap: 4px; pointer-events: auto;
+  display: flex; align-items: center; gap: 6px;
   padding: 4px; border-radius: 999px;
-  background: rgba(6, 22, 39, .72); border: 1px solid rgba(255, 255, 255, .18);
-  backdrop-filter: blur(8px);
+  background: rgba(6, 22, 39, .55); border: 1px solid rgba(255, 255, 255, .16);
 }
+.hcar__dots { display: flex; align-items: center; gap: 6px; padding: 0 4px; }
 .hcar__btn {
-  width: 36px; height: 36px; border-radius: 8px; cursor: pointer;
+  width: 36px; height: 36px; border-radius: 999px; cursor: pointer;
   display: grid; place-items: center; color: #EAF1FA;
-  background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .22);
+  background: transparent; border: 0;
 }
-.hcar__btn:hover { border-color: var(--amber); background: rgba(245, 166, 35, .14); color: var(--amber-lt); }
-.hcar__count { font-family: var(--ff-mono); font-size: 12px; letter-spacing: .06em; color: #8FA8C4; min-width: 4.6em; text-align: center; }
-.hcar__count b { color: #fff; font-weight: 500; }
-.hero__foot { position: relative; padding: 6px 0 28px; }
-.hero__railhd { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-.hero__railn { font-family: var(--ff-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #8FA8C4; }
-.hcar__rail {
-  display: flex; gap: 8px; overflow-x: auto; padding: 4px 84px 14px 4px;
-  scroll-snap-type: x mandatory; scroll-padding-inline: 4px;
-  scrollbar-width: thin; scrollbar-color: rgba(245, 166, 35, .75) rgba(255, 255, 255, .08);
+.hcar__btn:hover { background: rgba(245, 166, 35, .16); color: var(--amber-lt); }
+.hcar__dot {
+  width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; cursor: pointer;
+  background: rgba(255, 255, 255, .38);
+  transition: width .2s ease, background .2s ease;
 }
-.hcar__thumb {
-  flex: none; width: 72px; height: 72px; padding: 6px; cursor: pointer; scroll-snap-align: center;
-  border-radius: 10px; border: 1px solid rgba(255, 255, 255, .18);
-  background: linear-gradient(180deg, #FCFDFF 0%, #E7EEF6 100%);
-}
-.hcar__thumb img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; }
-.hcar__thumb.is-on { border-color: var(--amber); box-shadow: 0 0 0 2px rgba(245, 166, 35, .45); }
-.hcar__thumb:hover { border-color: rgba(245, 166, 35, .8); }
+.hcar__dot.is-on { width: 22px; background: var(--amber); }
+.hcar__dot:hover { background: var(--amber-lt); }
 
 .stage { position: relative; aspect-ratio: 5 / 4; min-height: 300px; min-width: 0; }
 .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; display: block; }
@@ -679,10 +668,8 @@ button { font: inherit; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 1040px) {
-  .hero__in { grid-template-columns: 1fr; min-height: 0; padding: 40px 0 18px; }
-  .hero__copy { max-width: 640px; }
-  .hero__in > * { min-width: 0; }
-  .hcar__vis { height: 280px; }
+  .hero__in { padding: 16px 0 12px; }
+  .hcollage { gap: 6px; padding: 8px; }
   .stage { aspect-ratio: 4 / 3; min-height: 0; }
   .cats, .plist, .why, .contactcard { grid-template-columns: repeat(2, 1fr); }
   .stats { grid-template-columns: repeat(2, 1fr); }
@@ -716,8 +703,14 @@ button { font: inherit; }
   .wa { padding: 13px; right: 14px; bottom: 14px; }
   .wa span { display: none; }
   .stats { grid-template-columns: 1fr 1fr; }
-  .hcar__vis { height: 220px; }
-  .hero__railhd { flex-direction: column; gap: 4px; }
+  .hcollage {
+    aspect-ratio: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: none;
+    gap: 6px; padding: 8px; border-radius: 14px;
+  }
+  .hcollage__cell:nth-child(n) { grid-column: auto; grid-row: auto; aspect-ratio: 1; }
+  .hcar__dock { padding-top: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2983,7 +2976,7 @@ root.OPHOTOS = P;
     return productShot(p);
   }
   /* Catalogue cover for a listing. Every product <img> on the site
-     (cards, rows, search, comparison, hero carousel, gallery default)
+     (cards, rows, search, comparison, hero collages, gallery default)
      must use this src so one OPHOTOS record updates every surface. */
   function cover(p) {
     var prod = productShot(p);
@@ -3516,76 +3509,47 @@ root.OPHOTOS = P;
   }
 
   /* ---------------- pages ---------------- */
-  function pad2(n) { n = String(n); return n.length < 2 ? '0' + n : n; }
+  /* Two boards of twelve catalogue covers. Each <img> uses cover(),
+     the same src as cards, rows, search and the product gallery. */
+  var HERO_BOARDS = [
+    ['ss-j-bolt', 'alu-mono-rail', 'solar-earthing-kit', 'mid-end-clamps', 'alu-clamps', 'alu-rail-nut', 'solar-u-bolt', 'l-cap-bolt', 'spring-nut', 'base-plate', 'wedge-anchor', 'gi-clamp'],
+    ['mc4-connectors', 'acdc-dcdb-box', 'pit-cover', 'flange-nut', 'streep-patti', 'la-base-insulator', 'earthing-rod-la', 'polycap-lms', 'zinc-spray', 'pvc-pipe-fittings', 'uv-cable-tie', 'mc4-y-branch']
+  ];
 
   function heroCarouselHTML() {
-    var n = PRODUCTS.length;
-    var slides = PRODUCTS.map(function (p, i) {
-      var c = catById(p.cat);
+    var slides = HERO_BOARDS.map(function (ids, i) {
       var on = i === 0;
-      var alt = p.name + (productShot(p) ? '' : ' — studio render');
-      var img = productImg(p, alt, (on ? ' decoding="async" fetchpriority="high"' : ' loading="lazy" decoding="async"'));
-      return '<article class="hcar__slide' + (on ? ' is-on' : '') + '" id="heroSlide' + i + '" role="tabpanel" aria-labelledby="heroTab' + i + '"' + (on ? '' : ' aria-hidden="true" inert') + '>' +
-        '<a class="hcar__vis" href="#/product/' + p.id + '">' +
-        (img || '<span class="hcar__ph">' + ICO.box3d + '</span>') +
-        (img && !productShot(p) ? '<span class="hcar__render">3D render</span>' : '') +
-        '</a>' +
-        '<div class="hcar__meta">' +
-        '<p class="eyebrow eyebrow--amber">' + esc(c ? c.name : 'Catalogue') + '</p>' +
-        '<h2 class="hcar__nm"><a href="#/product/' + p.id + '">' + esc(p.name) + '</a></h2>' +
-        '<p class="mono hcar__part">' + esc(p.part) + (p.brand && p.brand !== 'Omega' ? ' · ' + esc(p.brand) : '') + '</p>' +
-        '<p class="hcar__bl">' + esc(p.blurb) + '</p>' +
-        '<div class="hcar__chips">' + p.sizes.slice(0, 3).map(function (s2) { return '<span class="chip">' + esc(s2) + '</span>'; }).join('') +
-        (p.sizes.length > 3 ? '<span class="chip chip--more">+' + (p.sizes.length - 3) + '</span>' : '') + '</div>' +
-        '<div class="hcar__acts">' +
-        '<a class="btn btn--amber btn--sm" href="#/product/' + p.id + '">View part' + ICO.arrow + '</a>' +
-        '<button type="button" class="btn btn--onDark btn--sm js-add" data-pid="' + p.id + '">' + ICO.plus + 'Inquiry</button>' +
-        '</div></div></article>';
+      var cells = ids.map(function (id) {
+        var p = byId(id);
+        if (!p) return '';
+        var src = cover(p);
+        if (!src) return '';
+        var extra = on ? ' decoding="async" fetchpriority="high"' : ' loading="lazy" decoding="async"';
+        return '<a class="hcollage__cell" href="#/product/' + p.id + '"><img src="' + src + '" alt="' + esc(p.name) + '"' + extra + '></a>';
+      }).join('');
+      return '<div class="hcar__slide' + (on ? ' is-on' : '') + '" id="heroSlide' + i + '" role="tabpanel" aria-labelledby="heroTab' + i + '"' + (on ? '' : ' aria-hidden="true" inert') + '>' +
+        '<div class="hcollage">' + cells + '</div></div>';
     }).join('');
-    var thumbs = PRODUCTS.map(function (p, i) {
+    var dots = HERO_BOARDS.map(function (_, i) {
       var on = i === 0;
-      return '<button type="button" class="hcar__thumb' + (on ? ' is-on' : '') + '" id="heroTab' + i + '" role="tab" aria-selected="' + (on ? 'true' : 'false') + '" aria-controls="heroSlide' + i + '" data-i="' + i + '" aria-label="' + esc(p.name) + '">' +
-        (productImg(p, '') || ICO.box3d) + '</button>';
+      return '<button type="button" class="hcar__dot' + (on ? ' is-on' : '') + '" id="heroTab' + i + '" role="tab" aria-selected="' + (on ? 'true' : 'false') + '" aria-controls="heroSlide' + i + '" data-i="' + i + '" aria-label="Show collage ' + (i + 1) + '"></button>';
     }).join('');
-    return {
-      stage: '<div class="hcar" id="heroCarousel" tabindex="0" role="region" aria-roledescription="carousel" aria-label="All ' + n + ' catalogue products">' +
-        '<div class="hcar__prog" aria-hidden="true"><span id="heroProg"></span></div>' +
-        '<div class="hcar__track">' + slides + '</div>' +
-        '<div class="hcar__dock"><div class="hcar__nav">' +
-        '<button type="button" class="hcar__btn" id="heroPrev" aria-label="Previous product">' + ICO.left + '</button>' +
-        '<span class="hcar__count" id="heroCount"><b>01</b> / ' + pad2(n) + '</span>' +
-        '<button type="button" class="hcar__btn" id="heroNext" aria-label="Next product">' + ICO.right + '</button>' +
-        '<button type="button" class="hcar__btn" id="heroPlay" aria-pressed="true" aria-label="Pause automatic rotation">' + ICO.pause + '</button>' +
-        '</div></div></div>',
-      rail: '<div class="wrap hero__foot">' +
-        '<div class="hero__railhd"><p class="eyebrow eyebrow--amber">Full catalogue</p>' +
-        '<span class="hero__railn">' + n + ' parts · select any thumbnail</span></div>' +
-        '<div class="hcar__rail" id="heroRail" role="tablist" aria-label="All products">' + thumbs + '</div></div>'
-    };
+    return '<div class="hcar" id="heroCarousel" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Product collages">' +
+      '<div class="hcar__prog" aria-hidden="true"><span id="heroProg"></span></div>' +
+      '<div class="hcar__track">' + slides + '</div>' +
+      '<div class="hcar__dock"><div class="hcar__nav">' +
+      '<button type="button" class="hcar__btn" id="heroPrev" aria-label="Previous collage">' + ICO.left + '</button>' +
+      '<div class="hcar__dots" role="tablist" aria-label="Collage slides">' + dots + '</div>' +
+      '<button type="button" class="hcar__btn" id="heroNext" aria-label="Next collage">' + ICO.right + '</button>' +
+      '<button type="button" class="hcar__btn" id="heroPlay" aria-pressed="true" aria-label="Pause automatic rotation">' + ICO.pause + '</button>' +
+      '</div></div></div>';
   }
 
   function pageHome() {
     var feat = PRODUCTS.filter(function (p) { return p.featured; }).slice(0, 6);
-    var hero = heroCarouselHTML();
-    return '<section class="hero"><div class="hero__grid" aria-hidden="true">' +
-      '<svg width="100%" height="100%"><defs><pattern id="g" width="46" height="46" patternUnits="userSpaceOnUse">' +
-      '<path d="M46 0H0v46" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="1"/></pattern></defs>' +
-      '<rect width="100%" height="100%" fill="url(#g)"/></svg></div>' +
-      '<div class="wrap hero__in">' +
-      '<div class="hero__copy">' +
-      '<p class="eyebrow eyebrow--amber">MFG. &amp; Traders · Kathwada, Ahmedabad</p>' +
-      '<h1>The balance of system, <em>held in stock</em> — not quoted from a photograph.</h1>' +
-      '<p class="hero__sub">Connectors, clamps, rails, earthing kits and Havells-built DB boxes for installers, EPC contractors and dealers. Cycle the full range — every part number here is one we can price today.</p>' +
-      '<div class="hero__acts">' +
-      '<a class="btn btn--amber" href="#/quote">Request a quote</a>' +
-      '<a class="btn btn--onDark" href="#/products">Browse the catalogue' + ICO.arrow + '</a>' +
-      '</div>' +
-      '<div class="hero__meta"><span>1500 V DC connectors</span><span>SS 304 &amp; GI hardware</span><span>Havells inside every DB box</span></div>' +
-      '</div>' +
-      hero.stage +
-      '</div>' +
-      hero.rail +
-      '</section>' +
+    return '<section class="hero"><div class="wrap hero__in">' +
+      heroCarouselHTML() +
+      '</div></section>' +
 
       '<div class="strip"><div class="wrap strip__in">' +
       '<span class="strip__i">' + ICO.shield + '<span><b>Manufacturer &amp; Trader</b> · GST registered</span></span>' +
@@ -4576,10 +4540,9 @@ root.OPHOTOS = P;
 
   function wireHeroCarousel() {
     var box = el('#heroCarousel');
-    var rail = el('#heroRail');
     if (!box) return;
     var slides = els('.hcar__slide', box);
-    var thumbs = rail ? els('.hcar__thumb', rail) : [];
+    var dots = els('.hcar__dot', box);
     var n = slides.length;
     if (!n) return;
     var i = 0;
@@ -4595,12 +4558,6 @@ root.OPHOTOS = P;
       void bar.offsetWidth;
       bar.style.animation = '';
     }
-    function centerThumb() {
-      var th = thumbs[i];
-      if (!rail || !th) return;
-      var left = th.offsetLeft - (rail.clientWidth - th.offsetWidth) / 2;
-      rail.scrollTo({ left: Math.max(0, left), behavior: reduce ? 'auto' : 'smooth' });
-    }
     function show(next) {
       i = (next % n + n) % n;
       slides.forEach(function (s, k) {
@@ -4610,14 +4567,11 @@ root.OPHOTOS = P;
         if (on) s.removeAttribute('inert');
         else s.setAttribute('inert', '');
       });
-      thumbs.forEach(function (t, k) {
+      dots.forEach(function (t, k) {
         var on = k === i;
         t.classList.toggle('is-on', on);
         t.setAttribute('aria-selected', on ? 'true' : 'false');
       });
-      var count = el('#heroCount');
-      if (count) count.innerHTML = '<b>' + pad2(i + 1) + '</b> / ' + pad2(n);
-      centerThumb();
       if (playing && !hovered) restartProg();
     }
     function tick() { show(i + 1); }
@@ -4645,33 +4599,22 @@ root.OPHOTOS = P;
     if (prev) prev.addEventListener('click', function () { step(-1); });
     if (next) next.addEventListener('click', function () { step(1); });
     if (play) play.addEventListener('click', function () { setPlaying(!playing); });
-    thumbs.forEach(function (t) {
+    dots.forEach(function (t) {
       t.addEventListener('click', function () { show(+t.getAttribute('data-i')); if (playing) arm(); });
     });
     function pauseHover() { hovered = true; box.classList.remove('is-run'); stopHeroCarousel(); }
     function resumeHover() { hovered = false; if (playing) arm(); }
     box.addEventListener('mouseenter', pauseHover);
     box.addEventListener('mouseleave', resumeHover);
-    if (rail) {
-      rail.addEventListener('mouseenter', pauseHover);
-      rail.addEventListener('mouseleave', resumeHover);
-    }
     box.addEventListener('focusin', pauseHover);
     box.addEventListener('focusout', function (e) {
-      if (!box.contains(e.relatedTarget) && !(rail && rail.contains(e.relatedTarget))) resumeHover();
+      if (!box.contains(e.relatedTarget)) resumeHover();
     });
-    if (rail) {
-      rail.addEventListener('focusin', pauseHover);
-      rail.addEventListener('focusout', function (e) {
-        if (!rail.contains(e.relatedTarget) && !box.contains(e.relatedTarget)) resumeHover();
-      });
-    }
     function onKeys(e) {
       if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
       else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
     }
     box.addEventListener('keydown', onKeys);
-    if (rail) rail.addEventListener('keydown', onKeys);
     var x0 = null;
     box.addEventListener('pointerdown', function (e) {
       x0 = null;
