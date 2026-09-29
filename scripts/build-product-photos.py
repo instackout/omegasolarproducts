@@ -8,6 +8,8 @@ import io
 import json
 import re
 import sys
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -27,8 +29,15 @@ def api(params: dict) -> dict:
     q = urllib.parse.urlencode({**params, "format": "json"})
     url = f"https://commons.wikimedia.org/w/api.php?{q}"
     req = urllib.request.Request(url, headers={"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=60) as resp:
-        return json.loads(resp.read().decode())
+    for attempt in range(6):
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                return json.loads(resp.read().decode())
+        except urllib.error.HTTPError as exc:
+            if exc.code == 429 and attempt < 5:
+                time.sleep(2 ** attempt)
+                continue
+            raise
 
 
 def resolve_file(title: str) -> str | None:
@@ -120,6 +129,7 @@ def main() -> int:
                 raw = download(url)
                 src = to_webp_data_url(raw)
                 cache[url] = src
+            time.sleep(0.35)
             built[model] = {
                 "view": "product",
                 "caption": caption,
