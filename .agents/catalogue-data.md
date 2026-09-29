@@ -49,8 +49,14 @@ Homepage counter strip — `{ n, suffix, label }` objects; animated on home rout
 
 ## Imagery (`OPHOTOS`)
 
-Large block of inlined WebP. Images are tied to `model` + optional `view` (`hero`, `exploded`, etc.).
-Keep new images WebP and reasonably compressed; the file is already ~1.3 MB.
+Large block of inlined WebP. Images are tied to `model` + optional `view`:
+
+- `product` — default catalogue / product-page photo (reference shots; see `scripts/product-photo-sources.json`)
+- `hero`, `front`, `side`, `top`, `exploded` — studio 3D renders (shown when **3D render** is selected)
+
+Regenerate reference photos: `python3 scripts/build-product-photos.py` then `python3 scripts/inject-product-photos.py`.
+
+Keep new images WebP and reasonably compressed; `index.html` is large once product photos are inlined.
 
 ## Exploded views
 
