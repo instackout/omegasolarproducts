@@ -741,6 +741,10 @@ button { font: inherit; }
 
 /* ---------- product gallery ---------- */
 .gal { display: flex; flex-direction: column; gap: 10px; }
+.gal__mode {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+}
+.gal__mode .sizeopt { margin: 0; }
 .gal__main {
   position: relative; aspect-ratio: 1 / 1; border-radius: var(--r-l); overflow: hidden;
   background: linear-gradient(180deg, #FCFDFF 0%, #EFF3F8 62%, #DDE4EC 100%);
@@ -2834,7 +2838,25 @@ button { font: inherit; }
   var PHOTOS = root.OPHOTOS || {};
 
   function shots(p) { return PHOTOS[p.model] || []; }
-  function cover(p) { var a = shots(p); return a.length ? a[0].src : null; }
+  function productShot(p) {
+    var a = shots(p), i;
+    for (i = 0; i < a.length; i++) if (a[i].view === 'product') return a[i];
+    return null;
+  }
+  function renderShots(p) {
+    return shots(p).filter(function (x) { return x.view !== 'product'; });
+  }
+  // Single image for cards and the default product view (real photo when present, else primary still).
+  function productDisplay(p) {
+    var prod = productShot(p);
+    if (prod) return prod;
+    var r = renderShots(p);
+    return r.length ? r[0] : null;
+  }
+  function cover(p) {
+    var d = productDisplay(p);
+    return d ? d.src : null;
+  }
 
   /* ---------------- helpers ---------------- */
   function esc(s) {
@@ -3253,10 +3275,10 @@ button { font: inherit; }
     return '<article class="pcard rv" data-pid="' + p.id + '">' +
       '<a class="pcard__vis" href="#/product/' + p.id + '" aria-label="' + esc(p.name) + '">' +
       (img
-        ? '<img src="' + img + '" alt="' + esc(p.name) + ' — studio render" loading="lazy" decoding="async">'
+        ? '<img src="' + img + '" alt="' + esc(p.name) + (productShot(p) ? '' : ' — studio render') + '" loading="lazy" decoding="async">'
         : '<span class="pcard__ph">' + ICO.box3d + '</span>') +
       '<span class="pcard__tag">' + esc(p.part) + '</span>' +
-      '<span class="pcard__render">3D render</span>' +
+      (productShot(p) ? '' : '<span class="pcard__render">3D render</span>') +
       '</a>' +
       '<div class="pcard__body">' +
       '<p class="eyebrow">' + esc(c ? c.name : '') + (p.brand !== 'Omega' ? ' · ' + esc(p.brand) : '') + '</p>' +
@@ -3682,49 +3704,69 @@ button { font: inherit; }
       '</div></section>' + ctaBand();
   }
 
-  // Photo-led gallery: studio stills first, live 3D as the last tab.
+  // Product photo by default; studio stills + live 3D when "3D render" is selected.
   function gallery(p) {
-    var ph = shots(p);
+    var display = productDisplay(p), renders = renderShots(p);
+    var mainSrc = display ? display.src : null;
+    var mainCap = display ? (display.caption || 'Product image') : '';
+    var hasPhoto = !!productShot(p);
     return '<div class="gal">' +
+      '<div class="gal__mode" id="galMode" role="radiogroup" aria-label="Product image or 3D render">' +
+      '<label class="sizeopt is-on"><input type="radio" name="galMode" value="product" checked> Product image</label>' +
+      '<label class="sizeopt"><input type="radio" name="galMode" value="render"' + (renders.length ? '' : ' disabled') + '> 3D render</label>' +
+      '</div>' +
       '<div class="gal__main" id="galMain">' +
-      (ph.length
-        ? '<img id="galImg" src="' + ph[0].src + '" alt="' + esc(p.name) + ' — ' + esc(ph[0].caption) + '">'
-        : '<div class="gal__none">' + ICO.box3d + '</div>') +
+      (mainSrc
+        ? '<img id="galImg" src="' + mainSrc + '" alt="' + esc(p.name) + ' — ' + esc(mainCap) + '">'
+        : '<div class="gal__none" id="galNone">' + ICO.box3d + '<p class="note" style="margin-top:12px;text-align:center;padding:0 20px">Product photograph for this line is being prepared.</p></div>') +
       '<div class="pd__stage gal__3d" id="pdStage" data-part="' + esc(p.model) + '" hidden>' +
       '<span class="stage__hint">Drag to rotate · scroll the page normally</span></div>' +
-      '<span class="gal__cap" id="galCap">' + esc(ph.length ? ph[0].caption : 'Interactive 3D') + '</span>' +
-      (ph.length ? '<button class="gal__zoom" id="galZoom" aria-label="Enlarge image">' + ICO.zoom + '</button>' : '') +
-      '<span class="gal__badge" id="galBadge">3D render</span>' +
+      '<span class="gal__cap" id="galCap">' + esc(mainCap || 'Product image') + '</span>' +
+      (mainSrc ? '<button class="gal__zoom" id="galZoom" aria-label="Enlarge image">' + ICO.zoom + '</button>' : '') +
+      '<span class="gal__badge" id="galBadge">Product image</span>' +
       '</div>' +
-      '<div class="gal__thumbs" id="galThumbs">' +
-      ph.map(function (x, i) {
+      '<div class="gal__thumbs" id="galThumbs" hidden>' +
+      renders.map(function (x, i) {
         return '<button class="thumb' + (i === 0 ? ' is-on' : '') + '" data-i="' + i + '" title="' + esc(x.caption) + '">' +
           '<img src="' + x.src + '" alt="' + esc(x.caption) + '" loading="lazy"></button>';
       }).join('') +
-      '<button class="thumb thumb--3d" data-3d title="Interactive 3D model">' + ICO.cube + '<span>3D</span></button>' +
+      (renders.length ? '<button class="thumb thumb--3d" data-3d title="Interactive 3D model">' + ICO.cube + '<span>3D</span></button>' : '') +
       '</div>' +
       viewbar('pdViews', !!EXPLODABLE[p.model], false) +
-      '<p class="note" style="margin-top:10px">Studio 3D renders produced from the measured part geometry — not photographs. ' +
-      'Open the <b>3D</b> tab to turn the part in your hand' +
+      '<p class="note" id="galNote" style="margin-top:10px">' +
+      (hasPhoto ? 'Product photograph shown by default.' : 'Product image shown by default.') +
+      ' Choose <b>3D render</b> for measured studio views from the part geometry' +
+      (renders.length ? ', or the <b>3D</b> thumbnail to turn the part in your hand' : '') +
       (EXPLODABLE[p.model] ? ', or the exploded view to see how it comes apart' : '') + '.</p>' +
       '</div>';
   }
 
   function wireGallery(p) {
-    var ph = shots(p), main = el('#galMain'), img = el('#galImg'),
+    var prod = productShot(p), display = productDisplay(p), renders = renderShots(p);
+    var main = el('#galMain'), img = el('#galImg'), none = el('#galNone', main) || el('.gal__none', main),
         cap = el('#galCap'), stage = el('#pdStage'), badge = el('#galBadge'),
-        zoom = el('#galZoom'), bar = el('#pdViews'), thumbs = el('#galThumbs');
+        zoom = el('#galZoom'), bar = el('#pdViews'), thumbs = el('#galThumbs'),
+        modeBar = el('#galMode');
     if (!main) return null;
-    var ctl = null, idx = 0;
+    var ctl = null, idx = 0, mode = 'product';
 
-    function show3d(on) {
-      if (img) img.hidden = on;
-      var none = el('.gal__none', main); if (none) none.hidden = on;
+    function ensureImg() {
+      if (img) return img;
+      img = doc.createElement('img');
+      img.id = 'galImg';
+      main.insertBefore(img, stage);
+      return img;
+    }
+
+    function showInteractive(on) {
+      var im = el('#galImg');
+      if (im) im.hidden = on;
+      if (none) none.hidden = on;
       stage.hidden = !on;
-      if (zoom) zoom.hidden = on;
+      if (zoom) zoom.hidden = on || mode !== 'render';
       if (bar) bar.hidden = !on;
       if (badge) badge.textContent = on ? 'Interactive 3D' : '3D render';
-      if (cap) cap.textContent = on ? 'Drag to rotate' : (ph[idx] ? ph[idx].caption : '');
+      if (cap) cap.textContent = on ? 'Drag to rotate' : (renders[idx] ? renders[idx].caption : '');
       if (on && !ctl) {
         var fit = FIT[p.model] || { dist: 4.35, y: 0 };
         ctl = inspector(stage, p.model, {
@@ -3734,16 +3776,72 @@ button { font: inherit; }
         }, 'pdViews');
       }
     }
-    if (bar) bar.hidden = true;
+
+    function showProduct() {
+      showInteractive(false);
+      if (thumbs) thumbs.hidden = true;
+      if (bar) bar.hidden = true;
+      if (badge) badge.textContent = prod ? 'Product image' : (display ? 'Product image' : '');
+      if (display) {
+        var im = ensureImg();
+        im.hidden = false;
+        if (none) none.hidden = true;
+        im.src = display.src;
+        im.alt = p.name + ' — ' + (prod ? (prod.caption || 'Product image') : 'Product image');
+        if (cap) cap.textContent = prod ? (prod.caption || 'Product image') : 'Product image';
+        if (zoom) zoom.hidden = false;
+      } else {
+        if (img) img.hidden = true;
+        if (none) none.hidden = false;
+        if (cap) cap.textContent = 'Product image';
+        if (zoom) zoom.hidden = true;
+      }
+    }
+
+    function showRenderGallery() {
+      if (!renders.length) return;
+      if (thumbs) thumbs.hidden = false;
+      pick(0);
+    }
+
+    function setMode(next) {
+      mode = next;
+      if (modeBar) {
+        els('.sizeopt', modeBar).forEach(function (l) {
+          var on = (l.querySelector('input') || {}).value === mode;
+          l.classList.toggle('is-on', on);
+        });
+      }
+      if (mode === 'product') showProduct();
+      else showRenderGallery();
+    }
 
     function pick(i) {
-      if (!ph[i]) return;
+      if (mode !== 'render' || !renders[i]) return;
       idx = i;
-      show3d(false);
-      img.src = ph[i].src;
-      img.alt = p.name + ' — ' + ph[i].caption;
-      cap.textContent = ph[i].caption;
-      els('.thumb', thumbs).forEach(function (t) { t.classList.toggle('is-on', t.getAttribute('data-i') === String(i)); });
+      showInteractive(false);
+      var im = ensureImg();
+      im.hidden = false;
+      if (none) none.hidden = true;
+      im.src = renders[i].src;
+      im.alt = p.name + ' — ' + renders[i].caption;
+      cap.textContent = renders[i].caption;
+      if (badge) badge.textContent = '3D render';
+      if (zoom) zoom.hidden = false;
+      els('.thumb', thumbs).forEach(function (t) {
+        t.classList.toggle('is-on', t.getAttribute('data-i') === String(i));
+      });
+    }
+
+    if (bar) bar.hidden = true;
+    setMode('product');
+
+    if (modeBar) {
+      els('input[name="galMode"]', modeBar).forEach(function (inp) {
+        inp.addEventListener('change', function () {
+          if (inp.checked) setMode(inp.value);
+        });
+      });
     }
 
     els('.thumb[data-i]', thumbs).forEach(function (t) {
@@ -3752,22 +3850,35 @@ button { font: inherit; }
     var t3 = el('.thumb--3d', thumbs);
     if (t3) t3.addEventListener('click', function () {
       els('.thumb', thumbs).forEach(function (x) { x.classList.toggle('is-on', x === t3); });
-      show3d(true);
+      showInteractive(true);
     });
-    if (zoom) zoom.addEventListener('click', function () { openLightbox(p, idx); });
-    if (img) img.addEventListener('click', function () { openLightbox(p, idx); });
+    if (zoom) zoom.addEventListener('click', function () {
+      openLightbox(p, mode === 'product' ? 0 : idx, mode);
+    });
+    var im0 = el('#galImg');
+    if (im0) im0.addEventListener('click', function () {
+      if (!im0.hidden) openLightbox(p, mode === 'product' ? 0 : idx, mode);
+    });
 
     main.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') pick((idx + 1) % ph.length);
-      if (e.key === 'ArrowLeft') pick((idx - 1 + ph.length) % ph.length);
+      if (mode !== 'render' || !renders.length) return;
+      if (e.key === 'ArrowRight') pick((idx + 1) % renders.length);
+      if (e.key === 'ArrowLeft') pick((idx - 1 + renders.length) % renders.length);
     });
-    return { pick: pick };
+    return { pick: pick, setMode: setMode };
   }
 
   /* ---------------- lightbox ---------------- */
-  var LB = { p: null, i: 0 };
-  function openLightbox(p, i) {
-    LB.p = p; LB.i = i;
+  var LB = { p: null, i: 0, mode: 'render' };
+  function lightboxShots(p, mode) {
+    if (mode === 'product') {
+      var one = productDisplay(p);
+      return one ? [one] : [];
+    }
+    return renderShots(p);
+  }
+  function openLightbox(p, i, mode) {
+    LB.p = p; LB.i = i; LB.mode = mode || 'render';
     var box = el('#lightbox');
     box.classList.add('is-on');
     box.setAttribute('aria-hidden', 'false');
@@ -3775,16 +3886,16 @@ button { font: inherit; }
     paintLightbox();
   }
   function paintLightbox() {
-    var ph = shots(LB.p);
+    var ph = lightboxShots(LB.p, LB.mode);
     if (!ph.length) return;
     el('#lbImg').src = ph[LB.i].src;
     el('#lbImg').alt = LB.p.name + ' — ' + ph[LB.i].caption;
     el('#lbCap').innerHTML = '<b>' + esc(LB.p.name) + '</b> · ' + esc(ph[LB.i].caption) +
       ' <span class="mono">' + esc(LB.p.part) + '</span>';
-    el('#lbCount').textContent = (LB.i + 1) + ' / ' + ph.length;
+    el('#lbCount').textContent = ph.length > 1 ? ((LB.i + 1) + ' / ' + ph.length) : '';
   }
   function lbStep(d) {
-    var ph = shots(LB.p);
+    var ph = lightboxShots(LB.p, LB.mode);
     if (!ph.length) return;
     LB.i = (LB.i + d + ph.length) % ph.length;
     paintLightbox();
