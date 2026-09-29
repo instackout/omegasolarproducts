@@ -668,7 +668,6 @@ button { font: inherit; }
   background: rgba(255, 255, 255, .82); border: 1px solid rgba(11, 42, 74, .14);
   color: #56657C; font-family: var(--ff-mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
 }
-.pcard__render--ref { right: auto; left: 10px; color: #3D5168; }
 .pcard__acts { display: inline-flex; align-items: center; gap: 7px; }
 .js-cmp.is-on { border-color: var(--amber); color: var(--amber); background: rgba(245, 166, 35, .10); }
 
@@ -2897,8 +2896,6 @@ root.OPHOTOS = P;
   function productDisplay(p) {
     return productShot(p);
   }
-  var REF_PHOTO_NOTE = 'Photos are <b>illustrative references</b> for the product type — not warehouse shots of the exact part number we dispatch. ' +
-    'WhatsApp or call for a <b>datasheet</b>, <b>sample</b>, or dimensions before you lock the BOQ.';
   function cover(p) {
     var prod = productShot(p);
     if (prod) return prod.src;
@@ -3370,10 +3367,10 @@ root.OPHOTOS = P;
     return '<article class="pcard rv" data-pid="' + p.id + '">' +
       '<a class="pcard__vis" href="#/product/' + p.id + '" aria-label="' + esc(p.name) + '">' +
       (img
-        ? '<img src="' + img + '" alt="' + esc(p.name) + (productShot(p) ? ' — illustrative reference' : ' — studio render') + '" loading="lazy" decoding="async">'
+        ? '<img src="' + img + '" alt="' + esc(p.name) + (productShot(p) ? '' : ' — studio render') + '" loading="lazy" decoding="async">'
         : '<span class="pcard__ph">' + ICO.box3d + '</span>') +
       '<span class="pcard__tag">' + esc(p.part) + '</span>' +
-      (productShot(p) ? '<span class="pcard__render pcard__render--ref">Reference</span>' : '<span class="pcard__render">3D render</span>') +
+      (productShot(p) ? '' : '<span class="pcard__render">3D render</span>') +
       '</a>' +
       '<div class="pcard__body">' +
       '<p class="eyebrow">' + esc(c ? c.name : '') + (p.brand !== 'Omega' ? ' · ' + esc(p.brand) : '') + '</p>' +
@@ -3638,8 +3635,7 @@ root.OPHOTOS = P;
       '<div class="activef" id="activeF"></div>' +
       '<p class="resline" id="resLine"></p>' +
       '<div class="plist" id="plist"></div>' +
-      '<p class="note" style="margin-top:26px">Other BOS material available on request. All prices quoted on request — GST extra. ' + REF_PHOTO_NOTE +
-      ' Optional <b>3D Render</b> views on each listing are measured studio geometry for fit-up detail.</p>' +
+      '<p class="note" style="margin-top:26px">Other BOS material available on request. All prices quoted on request — GST extra. Catalogue thumbnails use reference product photographs; optional 3D views on each listing are measured studio renders for fit-up detail.</p>' +
       '</div></div>' +
       '<div id="recent"></div>' +
       '</div></section>' + ctaBand();
@@ -3766,8 +3762,7 @@ root.OPHOTOS = P;
       '<tr><th scope="row">Minimum order</th><td>' + esc(p.moq) + '</td></tr>' +
       '<tr><th scope="row">Availability</th><td>' + esc(p.lead) + '</td></tr>' +
       '</tbody></table></div>' +
-      '<p class="note" style="margin-top:14px">' + REF_PHOTO_NOTE + '</p>' +
-      '<p class="note" style="margin-top:10px">Datasheet PDF — ask and we will email or WhatsApp the current one for this part number.</p></div></div>' +
+      '<p class="note" style="margin-top:14px">Datasheet PDF to be attached once the client supplies it — ask and we will email the current one.</p></div></div>' +
 
       '<div><p class="eyebrow">' + esc(c.name) + (p.brand !== 'Omega' ? ' · ' + esc(p.brand) + ' inside' : '') + '</p>' +
       '<h1>' + esc(p.name) + '</h1>' +
@@ -3820,7 +3815,7 @@ root.OPHOTOS = P;
       '<span class="stage__hint">Drag to rotate · scroll the page normally</span></div>' +
       '<span class="gal__cap" id="galCap">' + esc(mainCap || 'Product image') + '</span>' +
       (mainSrc ? '<button class="gal__zoom" id="galZoom" aria-label="Enlarge image">' + ICO.zoom + '</button>' : '') +
-      '<span class="gal__badge" id="galBadge">' + (hasPhoto ? 'Reference photo' : 'Product image') + '</span>' +
+      '<span class="gal__badge" id="galBadge">Product image</span>' +
       '</div>' +
       '<div class="gal__thumbs" id="galThumbs" hidden>' +
       renders.map(function (x, i) {
@@ -3831,8 +3826,8 @@ root.OPHOTOS = P;
       '</div>' +
       viewbar('pdViews', !!EXPLODABLE[p.model], false) +
       '<p class="note" id="galNote" style="margin-top:10px">' +
-      (hasPhoto ? REF_PHOTO_NOTE + ' ' : 'Product image shown by default. ') +
-      'Choose <b>3D Render</b> for measured studio views from the part geometry' +
+      (hasPhoto ? 'Product photograph shown by default.' : 'Product image shown by default.') +
+      ' Choose <b>3D Render</b> for measured studio views from the part geometry' +
       (renders.length ? ', or the <b>3D</b> thumbnail to turn the part in your hand' : '') +
       (EXPLODABLE[p.model] ? ', or the exploded view to see how it comes apart' : '') + '.</p>' +
       '</div>';
@@ -3878,7 +3873,7 @@ root.OPHOTOS = P;
       showInteractive(false);
       if (thumbs) thumbs.hidden = true;
       if (bar) bar.hidden = true;
-      if (badge) badge.textContent = prod ? 'Reference photo' : (display ? 'Product image' : '');
+      if (badge) badge.textContent = prod ? 'Product image' : (display ? 'Product image' : '');
       if (display) {
         var im = ensureImg();
         im.hidden = false;
@@ -4123,7 +4118,7 @@ root.OPHOTOS = P;
               '<td>' + (p.sizes.length ? p.sizes.map(esc).join(' · ') : 'Sizes on request') + '</td></tr>';
           }).join('') + '</tbody></table></div></div>';
       }).join('') +
-      '<p class="note">Other BOS material available on request. All prices quoted on request — GST extra. ' + REF_PHOTO_NOTE + '</p>' +
+      '<p class="note">Other BOS material available on request. All prices quoted on request — GST extra.</p>' +
       '</div></section>' + ctaBand();
   }
 
