@@ -123,12 +123,12 @@ See [.agents/editing-guide.md](.agents/editing-guide.md).
 
 | Field | Value |
 |-------|-------|
-| `index.html` lines | 4,462 |
-| `index.html` size | 1292 KiB |
-| `index.html` fingerprint | `a7b16cd0f4be` |
+| `index.html` lines | 4,664 |
+| `index.html` size | 2034 KiB |
+| `index.html` fingerprint | `168a2362b788` |
 | Catalogue products (`p(` entries) | 39 |
 | Product categories | 9 |
-| Inlined WebP assets | 152 |
+| Inlined WebP assets | 185 |
 | `404.html` matches `index.html` | yes |
 
 ### Hash routes (client-side)
