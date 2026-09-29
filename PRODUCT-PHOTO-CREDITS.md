@@ -2,17 +2,16 @@
 
 | Layer | What it is |
 |-------|------------|
-| **Product image** (default) | In-situ WebGL still — part on a site-style ground plane, outdoor lighting |
-| **3D Render** | Studio geometry views (`hero`, `front`, `side`, `top`, `exploded`) from measured models |
+| **Product image** (default) | Photographs matched to each product: Wikimedia Commons files where they depict that part, and studio shots in `scripts/reference-photos/` where no accurate public photo exists (`scripts/product-photo-sources.json`) |
+| **3D Render** | Optional studio geometry views (`hero`, `front`, `side`, `top`, `exploded`) from measured models |
 
-Regenerate installed-view stills:
+Regenerate reference photos:
 
 ```bash
-# Serve the site from repo root, then:
-python3 scripts/capture-context-photos.py
+pip install Pillow
+python3 scripts/build-product-photos.py
 python3 scripts/inject-product-photos.py
-cp index.html 404.html
 python3 scripts/sync-agent-context.py
 ```
 
-Requires `pip install playwright` and `playwright install chromium`.
+Attribution for Commons files is recorded in `scripts/product-photo-sources.json` (file title per model).
