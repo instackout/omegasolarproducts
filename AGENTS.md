@@ -129,7 +129,7 @@ See [.agents/editing-guide.md](.agents/editing-guide.md).
 | Catalogue products (`p(` entries) | 39 |
 | Product categories | 9 |
 | Inlined WebP assets | 185 |
-| `404.html` matches `index.html` | **no — sync required** |
+| `404.html` matches `index.html` | yes |
 
 ### Hash routes (client-side)
 
