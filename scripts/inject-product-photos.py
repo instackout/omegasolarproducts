@@ -47,11 +47,10 @@ def main() -> None:
     )
     if pattern.search(html):
         html = pattern.sub("\n" + block + "\n", html)
+    elif "root.OPHOTOS = P;" in html:
+        html = html.replace("root.OPHOTOS = P;", block + "root.OPHOTOS = P;", 1)
     else:
-        html = html.replace(
-            "  root.OPHOTOS = P;",
-            block + "  root.OPHOTOS = P;",
-        )
+        raise SystemExit("Could not find root.OPHOTOS = P; in index.html")
     INDEX.write_text(html)
     (ROOT / "404.html").write_text(html)
     print(f"Injected {len(built)} product photos into index.html / 404.html")

@@ -1,13 +1,18 @@
-# Product reference photographs
+# Product imagery
 
-Default **Product image** views on the catalogue use compressed WebP derivatives of openly licensed photographs from [Wikimedia Commons](https://commons.wikimedia.org/). They are illustrative references for the product category, not Omega Instruments pack shots.
+| Layer | What it is |
+|-------|------------|
+| **Product image** (default) | In-situ WebGL still — part on a site-style ground plane, outdoor lighting |
+| **3D Render** | Studio geometry views (`hero`, `front`, `side`, `top`, `exploded`) from measured models |
 
-Source file titles are listed in `scripts/product-photo-sources.json`. Rebuild with:
+Regenerate installed-view stills:
 
 ```bash
-python3 scripts/build-product-photos.py
+# Serve the site from repo root, then:
+python3 scripts/capture-context-photos.py
 python3 scripts/inject-product-photos.py
+cp index.html 404.html
 python3 scripts/sync-agent-context.py
 ```
 
-Studio geometry renders (`hero`, `front`, `side`, `top`, `exploded`) remain available under **3D render** on each product page.
+Requires `pip install playwright` and `playwright install chromium`.
