@@ -48,6 +48,10 @@
     "local": "scripts/reference-photos/gi-base-plate.webp",
     "caption": "Square base plate with anchor holes"
   },
+  "msBasePlate": {
+    "file": "Scaffold Base Plate.jpg",
+    "caption": "Mild-steel scaffold / base plate"
+  },
   "jHook": {
     "local": "scripts/reference-photos/solar-roof-hook.webp",
     "caption": "Roof hooks with fixing holes"
@@ -80,9 +84,17 @@
     "file": "Ancor bolt for concrete.JPG",
     "caption": "Concrete expansion anchors"
   },
+  "pinAnchor": {
+    "file": "Ancor bolt for concrete.JPG",
+    "caption": "Concrete pin / expansion anchors"
+  },
   "earthKit": {
     "local": "scripts/reference-photos/earthing-kit.webp",
     "caption": "Earthing kit: rods, arrester, compound and pit"
+  },
+  "solarEarthKit": {
+    "file": "Lone Lightning rod. (21149569).jpg",
+    "caption": "Rooftop lightning rod for solar earthing kits"
   },
   "laRod": {
     "file": "Conventional Lightning Rod (46429374125).jpg",
@@ -96,6 +108,10 @@
     "file": "Portable grounding rod.jpg",
     "caption": "Copper earthing cable"
   },
+  "aluEarthCable": {
+    "file": "ACSR and ACCC.JPG",
+    "caption": "Aluminium conductor / down-conductor cable"
+  },
   "pitCover": {
     "local": "scripts/reference-photos/earth-pit-cover.webp",
     "caption": "Earth-pit inspection cover"
@@ -104,9 +120,17 @@
     "file": "Small house distribution panel 2.jpg",
     "caption": "AC distribution board with MCBs and surge protection"
   },
+  "acdb3ph": {
+    "file": "Electrical panel in Swiss industrial building.jpg",
+    "caption": "Three-phase industrial AC distribution board"
+  },
   "dcdb": {
     "file": "2021-10-30 Generatoranschlusskasten.jpg",
     "caption": "DC combiner box with string fuses"
+  },
+  "acdcBox": {
+    "file": "Solar combiner box.jpg",
+    "caption": "Combined AC/DC solar distribution enclosure"
   },
   "isolator": {
     "file": "Utility Disconnect Switch.png",
