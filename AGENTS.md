@@ -123,9 +123,9 @@ See [.agents/editing-guide.md](.agents/editing-guide.md).
 
 | Field | Value |
 |-------|-------|
-| `index.html` lines | 4,913 |
+| `index.html` lines | 4,921 |
 | `index.html` size | 2295 KiB |
-| `index.html` fingerprint | `de9d787d1a42` |
+| `index.html` fingerprint | `aea399a24b5d` |
 | Catalogue products (`p(` entries) | 39 |
 | Product categories | 9 |
 | Inlined WebP assets | 187 |
